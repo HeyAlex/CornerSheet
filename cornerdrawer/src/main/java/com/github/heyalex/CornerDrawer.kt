@@ -6,10 +6,11 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
-import android.widget.ImageView
-import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.annotation.LayoutRes
+import androidx.core.view.children
 import androidx.core.view.doOnLayout
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.shape.CornerFamily
@@ -18,10 +19,16 @@ import com.google.android.material.shape.ShapeAppearanceModel
 
 class CornerDrawer : FrameLayout {
 
+    @LayoutRes
+    private var headerViewRes: Int = 0
+
+    private lateinit var container: FrameLayout
+    private lateinit var header: View
+
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
-//    private val bottomSheetBehavior = BottomSheetBehavior<FrameLayout>()
+    private val bottomSheetBehavior = BottomSheetBehavior<FrameLayout>()
     private var appearanceModel: ShapeAppearanceModel = ShapeAppearanceModel()
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int)
@@ -29,29 +36,45 @@ class CornerDrawer : FrameLayout {
 //        val params = layoutParams as CoordinatorLayout.LayoutParams
 //        val imageView = ImageView(context)
 //        params.behavior = bottomSheetBehavior
+
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.CornerDrawer)
+        headerViewRes =
+            typedArray.getResourceId(R.styleable.CornerDrawer_header_view, View.NO_ID)
+        typedArray.recycle()
+
+        header = LayoutInflater.from(context).inflate(headerViewRes, null).apply {
+            layoutParams =
+                FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
+        }
+
         val color = Color.RED
         val sheetBackground = MaterialShapeDrawable().apply {
             shapeAppearanceModel = appearanceModel.toBuilder().apply {
-                setTopLeftCorner(CornerFamily.CUT, 150f)
+                setTopLeftCorner(CornerFamily.CUT, 50f)
             }.build()
             setTint(color)
             paintStyle = Paint.Style.FILL
         }
         background = sheetBackground
-//        bottomSheetBehavior.peekHeight = 400
 
+        container = FrameLayout(context).apply {
+            layoutParams =
+                FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
+        }
+        super.addView(container)
+        super.addView(header)
 
         doOnLayout {
             val bottomSheetBehavior = BottomSheetBehavior.from(this)
             Log.d("check", "doOnLayout")
-            val maxTranslationX = (width - bottomSheetBehavior.peekHeight).toFloat()
+            bottomSheetBehavior.peekHeight = header.height
+            val maxTranslationX = (width - header.width).toFloat()
             translationX =
                 lerp(maxTranslationX, 0f, 0f, 0.15f, 0f)
 
             bottomSheetBehavior.addBottomSheetCallback(object :
                 BottomSheetBehavior.BottomSheetCallback() {
                 override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                    Log.d("check", "onSlide")
                     translationX =
                         lerp(maxTranslationX, 0f, 0f, 0.15f, slideOffset)
                     sheetBackground.interpolation = lerp(1f, 0f, 0f, 0.15f, slideOffset)
@@ -64,12 +87,20 @@ class CornerDrawer : FrameLayout {
                             slideOffset
                         )
                     )
+
+                    header.alpha = lerp(1f, 0f, 0f, 0.15f, slideOffset)
+                    header.visibility = if (slideOffset < 0.5) View.VISIBLE else View.GONE
+                    container.alpha = lerp(0f, 1f, 0.2f, 0.8f, slideOffset)
                 }
 
                 override fun onStateChanged(bottomSheet: View, newState: Int) {
-                    Log.d("check", "onStateChanged")
                 }
             })
         }
+    }
+
+    override fun addView(child: View?) {
+        Log.d("check", "addView")
+        container.addView(child)
     }
 }
