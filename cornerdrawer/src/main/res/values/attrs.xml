@@ -2,5 +2,6 @@
 <resources>
     <declare-styleable name="CornerDrawer">
         <attr name="header_view" format="reference"/>
+        <attr name="content_view" format="reference"/>
     </declare-styleable>
 </resources>

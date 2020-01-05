@@ -7,10 +7,10 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.widget.FrameLayout
 import androidx.annotation.LayoutRes
-import androidx.core.view.children
 import androidx.core.view.doOnLayout
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.shape.CornerFamily
@@ -22,13 +22,17 @@ class CornerDrawer : FrameLayout {
     @LayoutRes
     private var headerViewRes: Int = 0
 
-    private lateinit var container: FrameLayout
-    private lateinit var header: View
+    @LayoutRes
+    private var contentViewRes: Int = 0
+
+    private val container: FrameLayout
+    private val header: View
+    private val content: View
 
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
-    private val bottomSheetBehavior = BottomSheetBehavior<FrameLayout>()
+    private val bottomSheetBehavior = CornerDrawerBehaivor<FrameLayout>()
     private var appearanceModel: ShapeAppearanceModel = ShapeAppearanceModel()
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int)
@@ -40,11 +44,19 @@ class CornerDrawer : FrameLayout {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.CornerDrawer)
         headerViewRes =
             typedArray.getResourceId(R.styleable.CornerDrawer_header_view, View.NO_ID)
+
+        contentViewRes =
+            typedArray.getResourceId(R.styleable.CornerDrawer_content_view, View.NO_ID)
         typedArray.recycle()
 
         header = LayoutInflater.from(context).inflate(headerViewRes, null).apply {
             layoutParams =
                 FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
+        }
+
+        content = LayoutInflater.from(context).inflate(contentViewRes, null).apply {
+            layoutParams =
+                FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
         }
 
         val color = Color.RED
@@ -61,16 +73,17 @@ class CornerDrawer : FrameLayout {
             layoutParams =
                 FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
         }
-        super.addView(container)
         super.addView(header)
+        super.addView(container)
+        addView(content)
 
         doOnLayout {
             val bottomSheetBehavior = BottomSheetBehavior.from(this)
-            Log.d("check", "doOnLayout")
             bottomSheetBehavior.peekHeight = header.height
             val maxTranslationX = (width - header.width).toFloat()
             translationX =
                 lerp(maxTranslationX, 0f, 0f, 0.15f, 0f)
+            container.alpha = lerp(0f, 1f, 0.2f, 0.8f, 0f)
 
             bottomSheetBehavior.addBottomSheetCallback(object :
                 BottomSheetBehavior.BottomSheetCallback() {
@@ -99,8 +112,19 @@ class CornerDrawer : FrameLayout {
         }
     }
 
+//    override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
+//        return super.onInterceptTouchEvent(ev)
+//    }
+//
+//    override fun dispatchTouchEvent(event: MotionEvent?): Boolean {
+//        if(event != null && event.x < translationX) {
+//            Log.d("check", "onTouchEvent")
+//            return true
+//        }
+//        return super.dispatchTouchEvent(event)
+//    }
+
     override fun addView(child: View?) {
-        Log.d("check", "addView")
         container.addView(child)
     }
 }
