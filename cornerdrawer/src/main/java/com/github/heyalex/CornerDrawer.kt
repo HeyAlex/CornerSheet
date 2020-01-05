@@ -2,8 +2,6 @@ package com.github.heyalex
 
 import android.content.Context
 import android.content.res.ColorStateList
-import android.graphics.Color
-import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +10,6 @@ import androidx.annotation.LayoutRes
 import androidx.core.content.ContextCompat
 import androidx.core.view.doOnLayout
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
 
@@ -30,9 +27,6 @@ class CornerDrawer : FrameLayout {
 
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
-
-//    private val bottomSheetBehavior = CornerDrawerBehaivor<FrameLayout>()
-    private var appearanceModel: ShapeAppearanceModel = ShapeAppearanceModel()
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int)
         : super(context, attrs, defStyleAttr) {
@@ -52,13 +46,9 @@ class CornerDrawer : FrameLayout {
             ContextCompat.getColor(context, R.color.corner_drawer_transparent)
         )
 
-        val contentColor = typedArray.getColor(
-            R.styleable.CornerDrawer_content_color,
-            ContextCompat.getColor(context, R.color.corner_drawer_transparent)
-        )
-
         typedArray.recycle()
 
+        val transparentColor = ContextCompat.getColor(context, R.color.corner_drawer_transparent)
         header = LayoutInflater.from(context).inflate(headerViewRes, null).apply {
             layoutParams =
                 FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
@@ -69,13 +59,18 @@ class CornerDrawer : FrameLayout {
                 FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
         }
 
-        val sheetBackground = MaterialShapeDrawable().apply {
-            shapeAppearanceModel = appearanceModel.toBuilder().apply {
-                setTopLeftCorner(CornerFamily.CUT, 50f)
-            }.build()
-            setTint(headerColor)
-            paintStyle = Paint.Style.FILL
+        val sheetBackground = MaterialShapeDrawable(
+            ShapeAppearanceModel.builder(
+                context,
+                null,
+                R.attr.bottomSheetStyle,
+                0
+            ).build()
+        ).apply {
+            fillColor = ColorStateList.valueOf(headerColor)
         }
+
+
         background = sheetBackground
 
         container = FrameLayout(context).apply {
@@ -90,9 +85,8 @@ class CornerDrawer : FrameLayout {
             val bottomSheetBehavior = BottomSheetBehavior.from(this)
             bottomSheetBehavior.peekHeight = header.height
             val maxTranslationX = (width - header.width).toFloat()
-            translationX =
-                lerp(maxTranslationX, 0f, 0f, 0.15f, 0f)
-            container.alpha = lerp(0f, 1f, 0.2f, 0.8f, 0f)
+            translationX = lerp(maxTranslationX, 0f, 0f, 0.15f, 0f)
+            container.alpha = 0f
 
             bottomSheetBehavior.addBottomSheetCallback(object :
                 BottomSheetBehavior.BottomSheetCallback() {
@@ -103,7 +97,7 @@ class CornerDrawer : FrameLayout {
                     sheetBackground.fillColor = ColorStateList.valueOf(
                         lerpArgb(
                             headerColor,
-                            contentColor,
+                            transparentColor,
                             0f,
                             0.3f,
                             slideOffset
