@@ -5,12 +5,11 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.widget.FrameLayout
 import androidx.annotation.LayoutRes
+import androidx.core.content.ContextCompat
 import androidx.core.view.doOnLayout
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.shape.CornerFamily
@@ -32,7 +31,7 @@ class CornerDrawer : FrameLayout {
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
-    private val bottomSheetBehavior = CornerDrawerBehaivor<FrameLayout>()
+//    private val bottomSheetBehavior = CornerDrawerBehaivor<FrameLayout>()
     private var appearanceModel: ShapeAppearanceModel = ShapeAppearanceModel()
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int)
@@ -47,6 +46,17 @@ class CornerDrawer : FrameLayout {
 
         contentViewRes =
             typedArray.getResourceId(R.styleable.CornerDrawer_content_view, View.NO_ID)
+
+        val headerColor = typedArray.getColor(
+            R.styleable.CornerDrawer_header_color,
+            ContextCompat.getColor(context, R.color.corner_drawer_transparent)
+        )
+
+        val contentColor = typedArray.getColor(
+            R.styleable.CornerDrawer_content_color,
+            ContextCompat.getColor(context, R.color.corner_drawer_transparent)
+        )
+
         typedArray.recycle()
 
         header = LayoutInflater.from(context).inflate(headerViewRes, null).apply {
@@ -59,12 +69,11 @@ class CornerDrawer : FrameLayout {
                 FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
         }
 
-        val color = Color.RED
         val sheetBackground = MaterialShapeDrawable().apply {
             shapeAppearanceModel = appearanceModel.toBuilder().apply {
                 setTopLeftCorner(CornerFamily.CUT, 50f)
             }.build()
-            setTint(color)
+            setTint(headerColor)
             paintStyle = Paint.Style.FILL
         }
         background = sheetBackground
@@ -93,8 +102,8 @@ class CornerDrawer : FrameLayout {
                     sheetBackground.interpolation = lerp(1f, 0f, 0f, 0.15f, slideOffset)
                     sheetBackground.fillColor = ColorStateList.valueOf(
                         lerpArgb(
-                            color,
-                            Color.TRANSPARENT,
+                            headerColor,
+                            contentColor,
                             0f,
                             0.3f,
                             slideOffset
@@ -111,18 +120,6 @@ class CornerDrawer : FrameLayout {
             })
         }
     }
-
-//    override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
-//        return super.onInterceptTouchEvent(ev)
-//    }
-//
-//    override fun dispatchTouchEvent(event: MotionEvent?): Boolean {
-//        if(event != null && event.x < translationX) {
-//            Log.d("check", "onTouchEvent")
-//            return true
-//        }
-//        return super.dispatchTouchEvent(event)
-//    }
 
     override fun addView(child: View?) {
         container.addView(child)
