@@ -46,9 +46,13 @@ class CornerDrawer : FrameLayout {
             ContextCompat.getColor(context, R.color.corner_drawer_transparent)
         )
 
+        val contentColor = typedArray.getColor(
+            R.styleable.CornerDrawer_content_color,
+            ContextCompat.getColor(context, R.color.corner_drawer_transparent)
+        )
+
         typedArray.recycle()
 
-        val transparentColor = ContextCompat.getColor(context, R.color.corner_drawer_transparent)
         header = LayoutInflater.from(context).inflate(headerViewRes, null).apply {
             layoutParams =
                 FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
@@ -62,7 +66,7 @@ class CornerDrawer : FrameLayout {
         val sheetBackground = MaterialShapeDrawable(
             ShapeAppearanceModel.builder(
                 context,
-                null,
+                attrs,
                 R.attr.bottomSheetStyle,
                 0
             ).build()
@@ -97,7 +101,7 @@ class CornerDrawer : FrameLayout {
                     sheetBackground.fillColor = ColorStateList.valueOf(
                         lerpArgb(
                             headerColor,
-                            transparentColor,
+                            contentColor,
                             0f,
                             0.3f,
                             slideOffset

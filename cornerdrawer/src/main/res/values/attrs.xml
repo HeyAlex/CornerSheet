@@ -4,5 +4,6 @@
         <attr name="header_view" format="reference"/>
         <attr name="content_view" format="reference"/>
         <attr name="header_color" format="reference"/>
+        <attr name="content_color" format="reference"/>
     </declare-styleable>
 </resources>
