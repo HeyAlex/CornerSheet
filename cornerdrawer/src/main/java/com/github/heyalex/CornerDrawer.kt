@@ -2,6 +2,8 @@ package com.github.heyalex
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.os.Parcel
+import android.os.Parcelable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +12,7 @@ import androidx.annotation.LayoutRes
 import androidx.core.content.ContextCompat
 import androidx.core.view.doOnLayout
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetBehavior.SAVE_ALL
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
 
@@ -25,14 +28,13 @@ class CornerDrawer : FrameLayout {
     private val header: View
     private val content: View
 
+    private var isExpanded: Boolean = false
+
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int)
         : super(context, attrs, defStyleAttr) {
-//        val params = layoutParams as CoordinatorLayout.LayoutParams
-//        val imageView = ImageView(context)
-//        params.behavior = bottomSheetBehavior
 
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.CornerDrawer)
         headerViewRes =
@@ -74,7 +76,6 @@ class CornerDrawer : FrameLayout {
             fillColor = ColorStateList.valueOf(headerColor)
         }
 
-
         background = sheetBackground
 
         container = FrameLayout(context).apply {
@@ -87,10 +88,19 @@ class CornerDrawer : FrameLayout {
 
         doOnLayout {
             val bottomSheetBehavior = BottomSheetBehavior.from(this)
+            bottomSheetBehavior.saveFlags = SAVE_ALL
             bottomSheetBehavior.peekHeight = header.height
             val maxTranslationX = (width - header.width).toFloat()
-            translationX = lerp(maxTranslationX, 0f, 0f, 0.15f, 0f)
-            container.alpha = 0f
+            if (isExpanded) {
+                translationX = 0f
+                container.alpha = 1f
+                header.alpha = 0f
+                sheetBackground.fillColor = ColorStateList.valueOf(contentColor)
+                sheetBackground.interpolation = 0f
+            } else {
+                translationX = maxTranslationX
+                container.alpha = 0f
+            }
 
             bottomSheetBehavior.addBottomSheetCallback(object :
                 BottomSheetBehavior.BottomSheetCallback() {
@@ -116,6 +126,57 @@ class CornerDrawer : FrameLayout {
                 override fun onStateChanged(bottomSheet: View, newState: Int) {
                 }
             })
+        }
+    }
+
+    override fun onSaveInstanceState(): Parcelable {
+        val superState = super.onSaveInstanceState()
+        superState?.let {
+            val customViewSavedState = CornerDrawerSavedState(superState)
+            customViewSavedState.isExpanded = BottomSheetBehavior.from(this).state ==
+                BottomSheetBehavior.STATE_EXPANDED
+            return customViewSavedState
+        }
+        return superState
+    }
+
+
+    override fun onRestoreInstanceState(state: Parcelable) {
+        val customViewSavedState = state as CornerDrawerSavedState
+        if (customViewSavedState.isExpanded) {
+            isExpanded = true
+            BottomSheetBehavior.from(this).state = BottomSheetBehavior.STATE_EXPANDED
+        }
+        super.onRestoreInstanceState(customViewSavedState.superState)
+    }
+
+    private class CornerDrawerSavedState : BaseSavedState {
+
+        internal var isExpanded: Boolean = false
+
+        constructor(superState: Parcelable) : super(superState)
+
+        private constructor(source: Parcel) : super(source) {
+            isExpanded = source.readInt() == 1
+        }
+
+        override fun writeToParcel(out: Parcel, flags: Int) {
+            super.writeToParcel(out, flags)
+            out.writeInt(if (isExpanded) 1 else 0)
+        }
+
+        companion object CREATOR : Parcelable.Creator<CornerDrawerSavedState> {
+            override fun createFromParcel(source: Parcel): CornerDrawerSavedState {
+                return CornerDrawerSavedState(source)
+            }
+
+            override fun newArray(size: Int): Array<CornerDrawerSavedState?> {
+                return arrayOfNulls(size)
+            }
+        }
+
+        override fun describeContents(): Int {
+            return 0
         }
     }
 
