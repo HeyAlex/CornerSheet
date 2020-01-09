@@ -11,9 +11,13 @@ class CornerDrawerBehavior<T : View>(context: Context, attrs: AttributeSet?) :
     BottomSheetBehavior<T>(context, attrs) {
 
     override fun onTouchEvent(parent: CoordinatorLayout, child: T, event: MotionEvent): Boolean {
-        if (event.x < child.translationX) {
-            return false
+        return if (event.x < child.translationX) {
+            if (state == STATE_DRAGGING) {
+                state = STATE_COLLAPSED
+            }
+            false
+        } else {
+            super.onTouchEvent(parent, child, event)
         }
-        return super.onTouchEvent(parent, child, event)
     }
 }
