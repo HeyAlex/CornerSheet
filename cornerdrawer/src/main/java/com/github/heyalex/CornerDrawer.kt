@@ -2,11 +2,13 @@ package com.github.heyalex
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.os.Build
 import android.os.Parcel
 import android.os.Parcelable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
+import android.view.WindowInsets
 import android.widget.FrameLayout
 import androidx.annotation.LayoutRes
 import androidx.core.content.ContextCompat
@@ -129,11 +131,21 @@ class CornerDrawer : FrameLayout {
         }
     }
 
+    override fun onApplyWindowInsets(insets: WindowInsets): WindowInsets {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH) {
+            BottomSheetBehavior.from(this).peekHeight += insets.systemWindowInsetBottom
+            insets.consumeSystemWindowInsets()
+        } else {
+            super.onApplyWindowInsets(insets)
+        }
+    }
+
     override fun onSaveInstanceState(): Parcelable {
         val superState = super.onSaveInstanceState()
         superState?.let {
             val customViewSavedState = CornerDrawerSavedState(superState)
-            customViewSavedState.isExpanded = BottomSheetBehavior.from(this).state ==
+            val bottomSheetBehavior = BottomSheetBehavior.from(this)
+            customViewSavedState.isExpanded = bottomSheetBehavior.state ==
                 BottomSheetBehavior.STATE_EXPANDED
             return customViewSavedState
         }
