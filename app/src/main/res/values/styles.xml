@@ -15,10 +15,11 @@
         <item name="cornerSize">0dp</item>
     </style>
 
-    <style name="ShapeAppearanceOverlay.CornerDrawer" parent="ShapeAppearanceOverlay.TopLeftCut">
+    <style name="ShapeAppearanceOverlay.CornerDrawer" parent="">
         <item name="cornerSizeTopLeft">@dimen/minimized_sheet_top_left_radius</item>
+        <item name="cornerFamily">rounded</item>
     </style>
 
-    <dimen name="minimized_sheet_top_left_radius">20dp</dimen>
+    <dimen name="minimized_sheet_top_left_radius">34dp</dimen>
 
 </resources>

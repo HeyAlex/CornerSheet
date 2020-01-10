@@ -22,19 +22,19 @@
             android:id="@+id/corner_drawer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CornerDrawer"
             app:content_color="@color/colorPrimary"
             app:content_view="@layout/corner_drawer_content"
             app:header_color="@color/corner_drawer_header_color"
             app:header_view="@layout/corner_drawer_header"
-            app:layout_behavior="com.github.heyalex.CornerDrawerBehavior" />
+            app:layout_behavior="com.github.heyalex.CornerDrawerBehavior"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CornerDrawer" />
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <!--<fragment-->
-        <!--android:id="@+id/support_sheet"-->
-        <!--android:name="com.github.heyalex.cornerdrawer.example.CornerDrawerFragment"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent" />-->
+    <!--android:id="@+id/support_sheet"-->
+    <!--android:name="com.github.heyalex.cornerdrawer.example.CornerDrawerFragment"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent" />-->
 </FrameLayout>
