@@ -109,6 +109,7 @@ class CornerDrawer : FrameLayout {
                 override fun onSlide(bottomSheet: View, slideOffset: Float) {
                     translationX =
                         lerp(maxTranslationX, 0f, 0f, 0.15f, slideOffset)
+                    container.translationY = lerp(0f, topInset.toFloat(), 0.9f, 1f, slideOffset)
                     sheetBackground.interpolation = lerp(1f, 0f, 0f, 0.15f, slideOffset)
                     sheetBackground.fillColor = ColorStateList.valueOf(
                         lerpArgb(
@@ -137,8 +138,8 @@ class CornerDrawer : FrameLayout {
 
     override fun onApplyWindowInsets(insets: WindowInsets): WindowInsets {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH) {
-//            bottomInset = insets.systemWindowInsetBottom
-//            topInset = insets.systemWindowInsetTop
+            bottomInset = insets.systemWindowInsetBottom
+            topInset = insets.systemWindowInsetTop
         }
         return super.onApplyWindowInsets(insets)
     }
