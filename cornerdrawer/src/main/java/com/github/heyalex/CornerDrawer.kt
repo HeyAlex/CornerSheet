@@ -21,13 +21,14 @@ import com.google.android.material.shape.ShapeAppearanceModel
 open class CornerDrawer : FrameLayout {
 
     @LayoutRes
-    private var headerViewRes: Int = 0
+    protected var headerViewRes: Int = 0
 
     @LayoutRes
     private var contentViewRes: Int = 0
 
     private val container: FrameLayout
-    private val header: View
+    protected var header: View
+    protected var maxTranslationX: Float = 0f
     private val content: View
 
     private var bottomInset: Int = 0
@@ -92,7 +93,7 @@ open class CornerDrawer : FrameLayout {
             val bottomSheetBehavior = BottomSheetBehavior.from(this)
             bottomSheetBehavior.saveFlags = SAVE_ALL
             bottomSheetBehavior.peekHeight = header.height + bottomInset
-            val maxTranslationX = (width - header.width).toFloat()
+            maxTranslationX = (width - header.width).toFloat()
             if (isExpanded) {
                 translationX = 0f
                 container.alpha = 1f
@@ -137,6 +138,10 @@ open class CornerDrawer : FrameLayout {
         }
     }
 
+    override fun addView(child: View?) {
+        container.addView(child)
+    }
+
     override fun onApplyWindowInsets(insets: WindowInsets): WindowInsets {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH) {
             bottomInset = insets.systemWindowInsetBottom
@@ -156,7 +161,6 @@ open class CornerDrawer : FrameLayout {
         }
         return superState
     }
-
 
     override fun onRestoreInstanceState(state: Parcelable) {
         val customViewSavedState = state as CornerDrawerSavedState
@@ -195,9 +199,5 @@ open class CornerDrawer : FrameLayout {
         override fun describeContents(): Int {
             return 0
         }
-    }
-
-    override fun addView(child: View?) {
-        container.addView(child)
     }
 }
