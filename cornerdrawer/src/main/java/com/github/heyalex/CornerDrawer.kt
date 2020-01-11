@@ -18,7 +18,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior.SAVE_ALL
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
 
-class CornerDrawer : FrameLayout {
+open class CornerDrawer : FrameLayout {
 
     @LayoutRes
     private var headerViewRes: Int = 0
