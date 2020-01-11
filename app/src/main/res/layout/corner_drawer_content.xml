@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/black"
-        android:fitsSystemWindows="true"
         app:navigationIcon="@drawable/ic_keyboard_arrow_down_24dp"
         app:title="Support"
         app:titleTextColor="@android:color/white" />
