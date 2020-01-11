@@ -62,10 +62,7 @@ class CornerDrawer : FrameLayout {
                 FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
         }
 
-        content = LayoutInflater.from(context).inflate(contentViewRes, null).apply {
-            layoutParams =
-                FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
-        }
+        content = LayoutInflater.from(context).inflate(contentViewRes, null)
 
         val sheetBackground = MaterialShapeDrawable(
             ShapeAppearanceModel.builder(
@@ -91,7 +88,7 @@ class CornerDrawer : FrameLayout {
         doOnLayout {
             val bottomSheetBehavior = BottomSheetBehavior.from(this)
             bottomSheetBehavior.saveFlags = SAVE_ALL
-            bottomSheetBehavior.peekHeight = header.height
+            bottomSheetBehavior.peekHeight = header.height + bottomInset
             val maxTranslationX = (width - header.width).toFloat()
             if (isExpanded) {
                 translationX = 0f
@@ -99,9 +96,12 @@ class CornerDrawer : FrameLayout {
                 header.alpha = 0f
                 sheetBackground.fillColor = ColorStateList.valueOf(contentColor)
                 sheetBackground.interpolation = 0f
+                header.visibility = View.GONE
+                content.visibility = View.VISIBLE
             } else {
                 translationX = maxTranslationX
                 container.alpha = 0f
+                content.visibility = View.GONE
             }
 
             bottomSheetBehavior.addBottomSheetCallback(object :
@@ -122,6 +122,7 @@ class CornerDrawer : FrameLayout {
 
                     header.alpha = lerp(1f, 0f, 0f, 0.15f, slideOffset)
                     header.visibility = if (slideOffset < 0.5) View.VISIBLE else View.GONE
+                    content.visibility = if (slideOffset > 0.2) View.VISIBLE else View.GONE
                     container.alpha = lerp(0f, 1f, 0.2f, 0.8f, slideOffset)
                 }
 
@@ -131,13 +132,15 @@ class CornerDrawer : FrameLayout {
         }
     }
 
+    private var bottomInset: Int = 0
+    private var topInset: Int = 0
+
     override fun onApplyWindowInsets(insets: WindowInsets): WindowInsets {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH) {
-            BottomSheetBehavior.from(this).peekHeight += insets.systemWindowInsetBottom
-            insets.consumeSystemWindowInsets()
-        } else {
-            super.onApplyWindowInsets(insets)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH) {
+//            bottomInset = insets.systemWindowInsetBottom
+//            topInset = insets.systemWindowInsetTop
         }
+        return super.onApplyWindowInsets(insets)
     }
 
     override fun onSaveInstanceState(): Parcelable {
