@@ -52,7 +52,7 @@ open class CornerDrawer : FrameLayout {
 
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.CornerDrawer)
         headerViewRes =
-            typedArray.getResourceId(R.styleable.CornerDrawer_header_view, View.NO_ID)
+            typedArray.getResourceId(R.styleable.CornerDrawer_header_view, getHeaderStub())
 
         contentViewRes =
             typedArray.getResourceId(R.styleable.CornerDrawer_content_view, View.NO_ID)
@@ -137,6 +137,8 @@ open class CornerDrawer : FrameLayout {
         }
     }
 
+    protected open fun getHeaderStub() = View.NO_ID
+
     protected open fun onStartState() {
         if (isExpanded) {
             translationX = 0f
@@ -149,8 +151,8 @@ open class CornerDrawer : FrameLayout {
             container.translationY = topInset.toFloat()
         } else {
             translationX = maxTranslationX
-            header.visibility = View.GONE
-            content.visibility = View.VISIBLE
+            header.visibility = View.VISIBLE
+            content.visibility = View.GONE
             container.alpha = 0f
             content.visibility = View.GONE
         }
