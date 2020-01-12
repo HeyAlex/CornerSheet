@@ -5,11 +5,10 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
-import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.fragment.app.DialogFragment
-import com.github.heyalex.CornerDrawer
+import com.github.heyalex.ExpandableCornerDrawer
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 class MainActivity : AppCompatActivity() {
@@ -49,13 +48,22 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val cornerDrawer = findViewById<CornerDrawer>(R.id.corner_drawer)
+        val cornerDrawer = findViewById<ExpandableCornerDrawer>(R.id.corner_drawer)
         val behavior = BottomSheetBehavior.from(cornerDrawer)
 
-        val header = findViewById<LinearLayout>(R.id.header_root)
+//        val header = findViewById<LinearLayout>(R.id.header_root)
+//
+//        header.setOnClickListener {
+//            behavior.state = BottomSheetBehavior.STATE_EXPANDED
+//        }
 
-        header.setOnClickListener {
-            behavior.state = BottomSheetBehavior.STATE_EXPANDED
+        var state = false
+
+        val hello_world = findViewById<TextView>(R.id.hellow_world)
+        hello_world.setOnClickListener {
+            val state1 = if (state) 0 else 1
+            cornerDrawer.setState(state1)
+            state = !state
         }
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
@@ -66,12 +74,12 @@ class MainActivity : AppCompatActivity() {
         var isLight = false
         behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                if(slideOffset < 0.98) {
-                    if(!isLight) {
+                if (slideOffset < 0.98) {
+                    if (!isLight) {
                         changeStatusBarIconColor(false)
                         isLight = true
                     }
-                } else if(isLight) {
+                } else if (isLight) {
                     changeStatusBarIconColor(true)
                     isLight = false
                 }
