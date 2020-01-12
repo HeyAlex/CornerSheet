@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowInsets
 import android.widget.FrameLayout
+import androidx.annotation.ColorInt
 import androidx.annotation.LayoutRes
 import androidx.core.content.ContextCompat
 import androidx.core.view.doOnLayout
@@ -26,15 +27,22 @@ open class CornerDrawer : FrameLayout {
     @LayoutRes
     private var contentViewRes: Int = 0
 
+    @ColorInt
+    private var contentColor: Int = 0
+
+    @ColorInt
+    private var headerColor: Int = 0
+
+    private val sheetBackground: MaterialShapeDrawable
+
     private val container: FrameLayout
-    protected var header: View
-    protected var maxTranslationX: Float = 0f
-    private val content: View
+    protected lateinit var header: View
+    private lateinit var content: View
 
     private var bottomInset: Int = 0
     private var topInset: Int = 0
-
     private var isExpanded: Boolean = false
+    protected var maxTranslationX: Float = 0f
 
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -49,26 +57,30 @@ open class CornerDrawer : FrameLayout {
         contentViewRes =
             typedArray.getResourceId(R.styleable.CornerDrawer_content_view, View.NO_ID)
 
-        val headerColor = typedArray.getColor(
+        headerColor = typedArray.getColor(
             R.styleable.CornerDrawer_header_color,
             ContextCompat.getColor(context, R.color.corner_drawer_transparent)
         )
 
-        val contentColor = typedArray.getColor(
+        contentColor = typedArray.getColor(
             R.styleable.CornerDrawer_content_color,
             ContextCompat.getColor(context, R.color.corner_drawer_transparent)
         )
 
         typedArray.recycle()
 
-        header = LayoutInflater.from(context).inflate(headerViewRes, null).apply {
-            layoutParams =
-                FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
+        if (headerViewRes != View.NO_ID) {
+            header = LayoutInflater.from(context).inflate(headerViewRes, null).apply {
+                layoutParams =
+                    FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
+            }
         }
 
-        content = LayoutInflater.from(context).inflate(contentViewRes, null)
+        if (contentViewRes != View.NO_ID) {
+            content = LayoutInflater.from(context).inflate(contentViewRes, null)
+        }
 
-        val sheetBackground = MaterialShapeDrawable(
+        sheetBackground = MaterialShapeDrawable(
             ShapeAppearanceModel.builder(
                 context,
                 attrs,
@@ -94,20 +106,7 @@ open class CornerDrawer : FrameLayout {
             bottomSheetBehavior.saveFlags = SAVE_ALL
             bottomSheetBehavior.peekHeight = header.height + bottomInset
             maxTranslationX = (width - header.width).toFloat()
-            if (isExpanded) {
-                translationX = 0f
-                container.alpha = 1f
-                header.alpha = 0f
-                sheetBackground.fillColor = ColorStateList.valueOf(contentColor)
-                sheetBackground.interpolation = 0f
-                header.visibility = View.GONE
-                content.visibility = View.VISIBLE
-                container.translationY = topInset.toFloat()
-            } else {
-                translationX = maxTranslationX
-                container.alpha = 0f
-                content.visibility = View.GONE
-            }
+            onStartState()
 
             bottomSheetBehavior.addBottomSheetCallback(object :
                 BottomSheetBehavior.BottomSheetCallback() {
@@ -135,6 +134,25 @@ open class CornerDrawer : FrameLayout {
                 override fun onStateChanged(bottomSheet: View, newState: Int) {
                 }
             })
+        }
+    }
+
+    protected open fun onStartState() {
+        if (isExpanded) {
+            translationX = 0f
+            container.alpha = 1f
+            header.alpha = 0f
+            sheetBackground.fillColor = ColorStateList.valueOf(contentColor)
+            sheetBackground.interpolation = 0f
+            header.visibility = View.GONE
+            content.visibility = View.VISIBLE
+            container.translationY = topInset.toFloat()
+        } else {
+            translationX = maxTranslationX
+            header.visibility = View.GONE
+            content.visibility = View.VISIBLE
+            container.alpha = 0f
+            content.visibility = View.GONE
         }
     }
 
@@ -171,7 +189,7 @@ open class CornerDrawer : FrameLayout {
         super.onRestoreInstanceState(customViewSavedState.superState)
     }
 
-    private class CornerDrawerSavedState : BaseSavedState {
+    protected class CornerDrawerSavedState : BaseSavedState {
 
         internal var isExpanded: Boolean = false
 
