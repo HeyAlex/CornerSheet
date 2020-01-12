@@ -1,11 +1,13 @@
 package com.github.heyalex
 
+import android.animation.ValueAnimator
 import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Build
 import android.os.Parcel
 import android.os.Parcelable
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowInsets
@@ -14,6 +16,8 @@ import androidx.annotation.ColorInt
 import androidx.annotation.LayoutRes
 import androidx.core.content.ContextCompat
 import androidx.core.view.doOnLayout
+import com.github.heyalex.CornerDrawerBehavior.Companion.COLLAPSED
+import com.github.heyalex.CornerDrawerBehavior.Companion.EXPANDED
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.SAVE_ALL
 import com.google.android.material.shape.MaterialShapeDrawable
@@ -42,7 +46,9 @@ open class CornerDrawer : FrameLayout {
     private var bottomInset: Int = 0
     private var topInset: Int = 0
     private var isExpanded: Boolean = false
+
     protected var maxTranslationX: Float = 0f
+    protected var horizontalPeekHeight: Int = 0
 
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -50,9 +56,14 @@ open class CornerDrawer : FrameLayout {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int)
         : super(context, attrs, defStyleAttr) {
 
-        //TODO HORIZONTAL PEEK HEIGHT
         //TODO MOVE ALL FROM EXPANDABLE CORNER DRAWER TO HERE, SINCE THIS LOGIC CAN BE DONE FROM HERE
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.CornerDrawer)
+
+        horizontalPeekHeight = typedArray.getDimensionPixelSize(
+            R.styleable.CornerDrawer_horizontal_peek_height,
+            -1
+        )
+
         headerViewRes =
             typedArray.getResourceId(R.styleable.CornerDrawer_header_view, getHeaderStub())
 
@@ -191,6 +202,33 @@ open class CornerDrawer : FrameLayout {
             BottomSheetBehavior.from(this).state = BottomSheetBehavior.STATE_EXPANDED
         }
         super.onRestoreInstanceState(customViewSavedState.superState)
+    }
+
+    fun setState(state: Int) {
+        ValueAnimator.ofFloat(0f, 1f).apply {
+            duration = 150
+            val expandedState = (width - header.width).toFloat()
+            val collapsed = (width - horizontalPeekHeight).toFloat()
+
+            val start = when(state) {
+                COLLAPSED -> collapsed
+                EXPANDED -> expandedState
+                else -> expandedState
+            }
+
+            val end = when(state) {
+                COLLAPSED -> expandedState
+                EXPANDED -> collapsed
+                else -> collapsed
+            }
+
+            addUpdateListener { animation ->
+                val value = animation.animatedValue as Float
+                translationX = lerp(start, end, 0f, 1f, value)
+            }
+
+            maxTranslationX = end
+        }.start()
     }
 
     protected class CornerDrawerSavedState : BaseSavedState {

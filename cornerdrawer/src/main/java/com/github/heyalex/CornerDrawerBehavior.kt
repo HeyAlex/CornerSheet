@@ -23,4 +23,10 @@ class CornerDrawerBehavior<T : View>(context: Context, attrs: AttributeSet?) :
             super.onTouchEvent(parent, child, event)
         }
     }
+
+    companion object {
+        const val EXPANDED = 0
+        const val COLLAPSED = 1
+    }
+
 }

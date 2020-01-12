@@ -5,5 +5,12 @@
         <attr name="content_view" format="reference"/>
         <attr name="header_color" format="reference"/>
         <attr name="content_color" format="reference"/>
+        <attr name="horizontal_peek_height" format="dimension"/>
     </declare-styleable>
+
+    <declare-styleable name="ExpandableCornerDrawer">
+        <attr name="header_icon" format="reference"/>
+        <attr name="header_text" format="reference"/>
+    </declare-styleable>
+
 </resources>
