@@ -10,6 +10,9 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 class CornerDrawerBehavior<T : View>(context: Context, attrs: AttributeSet?) :
     BottomSheetBehavior<T>(context, attrs) {
 
+    //TODO MAKE ALTERNATIVE OF BEHAIVOR SET HORIZONTAL PEEK HEIGHT FROM THIS SIDE
+    //TODO MAKE ANALOG OF viewRef
+
     override fun onTouchEvent(parent: CoordinatorLayout, child: T, event: MotionEvent): Boolean {
         return if (event.x < child.translationX) {
             if (state == STATE_DRAGGING) {
