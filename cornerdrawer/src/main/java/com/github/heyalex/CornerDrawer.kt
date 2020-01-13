@@ -56,7 +56,6 @@ open class CornerDrawer : FrameLayout {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int)
         : super(context, attrs, defStyleAttr) {
 
-        //TODO MOVE ALL FROM EXPANDABLE CORNER DRAWER TO HERE, SINCE THIS LOGIC CAN BE DONE FROM HERE
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.CornerDrawer)
 
         horizontalPeekHeight = typedArray.getDimensionPixelSize(
