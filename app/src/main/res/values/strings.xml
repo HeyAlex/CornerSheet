@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CornerDrawer</string>
+    <string name="corner_drawer_header">Support</string>
 </resources>

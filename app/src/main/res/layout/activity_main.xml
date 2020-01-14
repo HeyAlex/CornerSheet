@@ -10,12 +10,13 @@
         android:layout_height="match_parent">
 
         <TextView
+            android:id="@+id/hellow_world"
             android:layout_width="wrap_content"
+            android:textSize="40sp"
             android:layout_height="wrap_content"
             android:text="Hello World!"/>
 
-        <com.github.heyalex.CornerDrawer
-            android:fitsSystemWindows="false"
+        <com.github.heyalex.ExpandableCornerDrawer
             android:id="@+id/corner_drawer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -23,11 +24,14 @@
             app:content_view="@layout/corner_drawer_content"
             app:header_color="@color/corner_drawer_header_color"
             app:header_view="@layout/corner_drawer_header"
+            app:header_icon="@drawable/ic_message_24dp"
+            app:header_text="@string/corner_drawer_header"
             app:layout_behavior="com.github.heyalex.CornerDrawerBehavior"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CornerDrawer" />
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <!--app:header_view="@layout/corner_drawer_header"-->
 
     <!--<fragment-->
     <!--android:id="@+id/support_sheet"-->
