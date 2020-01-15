@@ -1,5 +1,6 @@
 package com.github.heyalex
 
+import android.animation.ValueAnimator
 import android.content.Context
 import android.util.AttributeSet
 import android.view.MotionEvent
@@ -12,12 +13,33 @@ class CornerDrawerBehavior<V : View>(context: Context, attrs: AttributeSet?) :
     BottomSheetBehavior<V>(context, attrs) {
 
     //TODO MAKE ALTERNATIVE OF BEHAIVOR SET HORIZONTAL PEEK HEIGHT FROM THIS SIDE
+    private var cornerDrawerRef: WeakReference<CornerDrawer>? = null
+    private var horizontalPeekHeight: Int = -1
 
-    protected var cornerDrawerRef: WeakReference<V>? = null
+    fun setHorizontalPeekHeight(height: Int, animate: Boolean) {
+        safeCornerDrawerCall {
+            it.horizontalPeekHeight = height
+
+            if (state == BottomSheetBehavior.STATE_COLLAPSED || it.) {
+                if (animate) {
+                    it.setState(COLLAPSED)
+                } else {
+                    it.maxTranslationX = height.toFloat()
+                    it.translationX = it.width - height.toFloat()
+                }
+            }
+        }
+    }
+
+    private fun safeCornerDrawerCall(unit: ((CornerDrawer) -> Unit)) {
+        if (cornerDrawerRef != null && cornerDrawerRef!!.get() != null) {
+            unit.invoke(cornerDrawerRef!!.get()!!)
+        }
+    }
 
     override fun onLayoutChild(parent: CoordinatorLayout, child: V, layoutDirection: Int): Boolean {
         val isDefaultBehavior = super.onLayoutChild(parent, child, layoutDirection)
-        if (cornerDrawerRef == null) {
+        if (cornerDrawerRef == null && child is CornerDrawer) {
             cornerDrawerRef = WeakReference(child)
         }
         return isDefaultBehavior
