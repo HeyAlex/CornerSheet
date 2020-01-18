@@ -16,7 +16,12 @@
             android:layout_height="wrap_content"
             android:text="Hello World!"/>
 
-        <com.github.heyalex.ExpandableCornerDrawer
+        <androidx.appcompat.widget.AppCompatSeekBar
+            android:id="@+id/seek_peek_height"
+            android:layout_marginTop="100dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <com.github.heyalex.CornerDrawer
             android:id="@+id/corner_drawer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -24,8 +29,7 @@
             app:content_view="@layout/corner_drawer_content"
             app:header_color="@color/corner_drawer_header_color"
             app:header_view="@layout/corner_drawer_header"
-            app:header_icon="@drawable/ic_message_24dp"
-            app:header_text="@string/corner_drawer_header"
+            app:horizontal_peek_height="50dp"
             app:layout_behavior="com.github.heyalex.CornerDrawerBehavior"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CornerDrawer" />
 

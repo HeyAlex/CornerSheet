@@ -5,10 +5,13 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import android.widget.SeekBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatSeekBar
 import androidx.appcompat.widget.Toolbar
-import com.github.heyalex.ExpandableCornerDrawer
+import com.github.heyalex.CornerDrawer
+import com.github.heyalex.CornerDrawerBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 class MainActivity : AppCompatActivity() {
@@ -48,8 +51,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val cornerDrawer = findViewById<ExpandableCornerDrawer>(R.id.corner_drawer)
-        val behavior = BottomSheetBehavior.from(cornerDrawer)
+        val cornerDrawer = findViewById<CornerDrawer>(R.id.corner_drawer)
+        val behavior = BottomSheetBehavior.from(cornerDrawer) as CornerDrawerBehavior
 
 //        val header = findViewById<LinearLayout>(R.id.header_root)
 //
@@ -66,6 +69,20 @@ class MainActivity : AppCompatActivity() {
             state = !state
         }
 
+        val seekbar = findViewById<AppCompatSeekBar>(R.id.seek_peek_height)
+        seekbar.max = 500
+        seekbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                behavior.setHorizontalPeekHeight(progress, false)
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+            }
+
+        })
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         toolbar.setNavigationOnClickListener {
             behavior.state = BottomSheetBehavior.STATE_COLLAPSED
@@ -86,9 +103,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onStateChanged(bottomSheet: View, newState: Int) {
-                if (newState == BottomSheetBehavior.STATE_EXPANDED) {
-                } else {
-                }
+
             }
         })
     }
