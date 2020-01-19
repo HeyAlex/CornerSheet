@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="CornerDrawer">
-        <attr name="header_view" format="reference"/>
-        <attr name="content_view" format="reference"/>
-        <attr name="header_color" format="reference"/>
-        <attr name="content_color" format="reference"/>
-        <attr name="horizontal_peek_height" format="dimension"/>
+        <attr name="header_view" format="reference" />
+        <attr name="content_view" format="reference" />
     </declare-styleable>
 
-    <declare-styleable name="ExpandableCornerDrawer">
-        <attr name="header_icon" format="reference"/>
-        <attr name="header_text" format="reference"/>
+    <declare-styleable name="CornerSheetBehavior_Layout">
+        <attr name="behavior_horizontal_peekHeight" format="dimension" />
+        <attr name="behavior_expanded_width" format="dimension" />
+        <attr name="behavior_hideable" format="boolean" />
+        <attr name="header_color" format="reference" />
+        <attr name="content_color" format="reference" />
     </declare-styleable>
 
 </resources>
