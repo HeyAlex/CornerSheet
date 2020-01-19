@@ -21,17 +21,57 @@
             android:layout_marginTop="100dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-        <com.github.heyalex.CornerDrawer
-            android:id="@+id/corner_drawer"
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_behavior="com.google.android.material.bottomsheet.CornerSheetBehavior"
+            app:behavior_peekHeight="100dp"
+            app:behavior_horizontal_peekHeight="50dp"
+            app:behavior_expanded_width="150dp"
             app:content_color="@color/corner_drawer_header_color"
-            app:content_view="@layout/corner_drawer_content"
             app:header_color="@color/corner_drawer_header_color"
-            app:header_view="@layout/corner_drawer_header"
-            app:horizontal_peek_height="50dp"
-            app:layout_behavior="com.github.heyalex.CornerDrawerBehavior"
-            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CornerDrawer" />
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CornerDrawer"
+            tools:showIn="@layout/activity_main">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/black"
+                app:navigationIcon="@drawable/ic_keyboard_arrow_down_24dp"
+                app:title="Support"
+                app:titleTextColor="@android:color/white" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hello World!" />
+
+
+            </FrameLayout>
+        </LinearLayout>
+
+
+        <!--<com.github.heyalex.CornerDrawer-->
+            <!--android:id="@+id/corner_drawer"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--app:content_color="@color/corner_drawer_header_color"-->
+            <!--app:content_view="@layout/corner_drawer_content"-->
+            <!--app:header_color="@color/corner_drawer_header_color"-->
+            <!--app:header_view="@layout/corner_drawer_header"-->
+            <!--app:horizontal_peek_height="50dp"-->
+            <!--app:layout_behavior="com.github.heyalex.CornerDrawerBehavior"-->
+            <!--app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CornerDrawer" />-->
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
