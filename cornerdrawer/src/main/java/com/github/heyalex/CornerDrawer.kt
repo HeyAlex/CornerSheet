@@ -7,21 +7,14 @@ import android.os.Build
 import android.os.Parcel
 import android.os.Parcelable
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowInsets
 import android.widget.FrameLayout
-import androidx.annotation.ColorInt
 import androidx.annotation.LayoutRes
-import androidx.core.content.ContextCompat
 import androidx.core.view.doOnLayout
-import com.github.heyalex.CornerDrawerBehavior.Companion.COLLAPSED
-import com.github.heyalex.CornerDrawerBehavior.Companion.EXPANDED
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.SAVE_ALL
-import com.google.android.material.shape.MaterialShapeDrawable
-import com.google.android.material.shape.ShapeAppearanceModel
 
 open class CornerDrawer : FrameLayout {
 
@@ -31,24 +24,14 @@ open class CornerDrawer : FrameLayout {
     @LayoutRes
     private var contentViewRes: Int = 0
 
-    @ColorInt
-    private var contentColor: Int = 0
-
-    @ColorInt
-    private var headerColor: Int = 0
-
-    private val sheetBackground: MaterialShapeDrawable
 
     private val container: FrameLayout
-    protected lateinit var header: View
+    private lateinit var header: View
     private lateinit var content: View
 
     private var bottomInset: Int = 0
     private var topInset: Int = 0
     private var isExpanded: Boolean = false
-
-    protected var maxTranslationX: Float = 0f
-    protected var horizontalPeekHeight: Int = 0
 
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -58,26 +41,12 @@ open class CornerDrawer : FrameLayout {
 
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.CornerDrawer)
 
-        horizontalPeekHeight = typedArray.getDimensionPixelSize(
-            R.styleable.CornerDrawer_horizontal_peek_height,
-            -1
-        )
-
         headerViewRes =
             typedArray.getResourceId(R.styleable.CornerDrawer_header_view, getHeaderStub())
 
         contentViewRes =
             typedArray.getResourceId(R.styleable.CornerDrawer_content_view, View.NO_ID)
 
-        headerColor = typedArray.getColor(
-            R.styleable.CornerDrawer_header_color,
-            ContextCompat.getColor(context, R.color.corner_drawer_transparent)
-        )
-
-        contentColor = typedArray.getColor(
-            R.styleable.CornerDrawer_content_color,
-            ContextCompat.getColor(context, R.color.corner_drawer_transparent)
-        )
 
         typedArray.recycle()
 
@@ -92,18 +61,6 @@ open class CornerDrawer : FrameLayout {
             content = LayoutInflater.from(context).inflate(contentViewRes, null)
         }
 
-        sheetBackground = MaterialShapeDrawable(
-            ShapeAppearanceModel.builder(
-                context,
-                attrs,
-                R.attr.bottomSheetStyle,
-                0
-            ).build()
-        ).apply {
-            fillColor = ColorStateList.valueOf(headerColor)
-        }
-
-        background = sheetBackground
 
         container = FrameLayout(context).apply {
             layoutParams =
@@ -114,38 +71,38 @@ open class CornerDrawer : FrameLayout {
         addView(content)
 
         doOnLayout {
-            val bottomSheetBehavior = BottomSheetBehavior.from(this)
-            bottomSheetBehavior.saveFlags = SAVE_ALL
-            bottomSheetBehavior.peekHeight = header.height + bottomInset
-            maxTranslationX = (width - header.width).toFloat()
-            onStartState()
-
-            bottomSheetBehavior.addBottomSheetCallback(object :
-                BottomSheetBehavior.BottomSheetCallback() {
-                override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                    translationX =
-                        lerp(maxTranslationX, 0f, 0f, 0.15f, slideOffset)
-                    container.translationY = lerp(0f, topInset.toFloat(), 0.75f, 1f, slideOffset)
-                    sheetBackground.interpolation = lerp(1f, 0f, 0f, 0.15f, slideOffset)
-                    sheetBackground.fillColor = ColorStateList.valueOf(
-                        lerpArgb(
-                            headerColor,
-                            contentColor,
-                            0f,
-                            0.3f,
-                            slideOffset
-                        )
-                    )
-
-                    header.alpha = lerp(1f, 0f, 0f, 0.15f, slideOffset)
-                    header.visibility = if (slideOffset < 0.5) View.VISIBLE else View.GONE
-                    content.visibility = if (slideOffset > 0.2) View.VISIBLE else View.GONE
-                    container.alpha = lerp(0f, 1f, 0.2f, 0.8f, slideOffset)
-                }
-
-                override fun onStateChanged(bottomSheet: View, newState: Int) {
-                }
-            })
+//            val bottomSheetBehavior = CornerDrawe.from(this)
+//            bottomSheetBehavior.saveFlags = SAVE_ALL
+//            bottomSheetBehavior.peekHeight = header.height + bottomInset
+//            maxTranslationX = (width - header.width).toFloat()
+//            onStartState()
+//
+//            bottomSheetBehavior.addBottomSheetCallback(object :
+//                BottomSheetBehavior.BottomSheetCallback() {
+//                override fun onSlide(bottomSheet: View, slideOffset: Float) {
+//                    translationX =
+//                        lerp(maxTranslationX, 0f, 0f, 0.15f, slideOffset)
+//                    container.translationY = lerp(0f, topInset.toFloat(), 0.75f, 1f, slideOffset)
+//                    sheetBackground.interpolation = lerp(1f, 0f, 0f, 0.15f, slideOffset)
+//                    sheetBackground.fillColor = ColorStateList.valueOf(
+//                        lerpArgb(
+//                            headerColor,
+//                            contentColor,
+//                            0f,
+//                            0.3f,
+//                            slideOffset
+//                        )
+//                    )
+//
+//                    header.alpha = lerp(1f, 0f, 0f, 0.15f, slideOffset)
+//                    header.visibility = if (slideOffset < 0.5) View.VISIBLE else View.GONE
+//                    content.visibility = if (slideOffset > 0.2) View.VISIBLE else View.GONE
+//                    container.alpha = lerp(0f, 1f, 0.2f, 0.8f, slideOffset)
+//                }
+//
+//                override fun onStateChanged(bottomSheet: View, newState: Int) {
+//                }
+//            })
         }
     }
 
@@ -156,13 +113,13 @@ open class CornerDrawer : FrameLayout {
             translationX = 0f
             container.alpha = 1f
             header.alpha = 0f
-            sheetBackground.fillColor = ColorStateList.valueOf(contentColor)
-            sheetBackground.interpolation = 0f
+//            sheetBackground.fillColor = ColorStateList.valueOf(contentColor)
+//            sheetBackground.interpolation = 0f
             header.visibility = View.GONE
             content.visibility = View.VISIBLE
             container.translationY = topInset.toFloat()
         } else {
-            translationX = maxTranslationX
+//            translationX = maxTranslationX
             header.visibility = View.VISIBLE
             content.visibility = View.GONE
             container.alpha = 0f
@@ -201,33 +158,6 @@ open class CornerDrawer : FrameLayout {
             BottomSheetBehavior.from(this).state = BottomSheetBehavior.STATE_EXPANDED
         }
         super.onRestoreInstanceState(customViewSavedState.superState)
-    }
-
-    fun setState(state: Int) {
-        ValueAnimator.ofFloat(0f, 1f).apply {
-            duration = 150
-            val expandedState = (width - header.width).toFloat()
-            val collapsed = (width - horizontalPeekHeight).toFloat()
-
-            val start = when(state) {
-                COLLAPSED -> collapsed
-                EXPANDED -> expandedState
-                else -> expandedState
-            }
-
-            val end = when(state) {
-                COLLAPSED -> expandedState
-                EXPANDED -> collapsed
-                else -> collapsed
-            }
-
-            addUpdateListener { animation ->
-                val value = animation.animatedValue as Float
-                translationX = lerp(start, end, 0f, 1f, value)
-            }
-
-            maxTranslationX = end
-        }.start()
     }
 
     protected class CornerDrawerSavedState : BaseSavedState {
