@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:appd="http://schemas.android.com/apk/res-auto"
+
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white">
@@ -22,34 +25,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
+        <LinearLayout
+            android:id="@+id/corner_behavior_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            app:layout_behavior="com.google.android.material.bottomsheet.CornerSheetBehavior"
+            app:layout_behavior="com.github.heyalex.behavior.CornerSheetBehavior"
             app:behavior_peekHeight="100dp"
             app:behavior_horizontal_peekHeight="50dp"
-            app:behavior_expanded_width="150dp"
-            app:content_color="@color/corner_drawer_header_color"
-            app:header_color="@color/corner_drawer_header_color"
+            app:behavior_expanded_width="290dp"
+            app:background_shape_color="@color/colorAccent"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CornerDrawer"
-            tools:showIn="@layout/activity_main">
+            tools:ignore="MissingPrefix">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/black"
+                android:background="@android:color/transparent"
                 app:navigationIcon="@drawable/ic_keyboard_arrow_down_24dp"
                 app:title="Support"
-                app:titleTextColor="@android:color/white" />
+                app:titleTextColor="@android:color/transparent" />
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@android:color/white">
+                android:background="@android:color/transparent">
 
                 <TextView
                     android:layout_width="wrap_content"

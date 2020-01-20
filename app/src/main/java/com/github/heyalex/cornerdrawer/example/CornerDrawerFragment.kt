@@ -17,7 +17,7 @@ class CornerDrawerFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.corner_drawer_fragment, container, false)
         view.findViewById<View>(R.id.header_root).setOnClickListener {
-            BottomSheetBehavior.from(view.findViewById<CornerDrawer>(R.id.corner_drawer)).state = BottomSheetBehavior.STATE_EXPANDED
+//            BottomSheetBehavior.from(view.findViewById<CornerDrawer>(R.id.corner_drawer)).state = BottomSheetBehavior.STATE_EXPANDED
         }
         return view
     }
