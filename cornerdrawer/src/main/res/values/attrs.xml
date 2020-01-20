@@ -8,6 +8,7 @@
     <declare-styleable name="CornerSheetBehavior_Layout">
         <attr name="behavior_horizontal_peekHeight" format="dimension" />
         <attr name="behavior_expanded_width" format="dimension" />
+        <attr name="behavior_horizontalExpandingRatio" format="float" />
         <attr name="behavior_hideable" format="boolean" />
         <attr name="background_shape_color" format="reference" />
     </declare-styleable>
