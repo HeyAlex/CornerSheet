@@ -26,8 +26,8 @@ open class CornerSheetBehavior<V : View> :
     private var horizontalPeekWidth: Int = -1
     private var expandedWidth: Int = 0
     private var expandingRatio: Float = 0.2f
-    private var horizontalState: Int =
-        STATE_EXPANDED
+    private var horizontalState: Int = STATE_EXPANDED
+    private var isViewRefInitialized: Boolean = false
 
     private var sheetBackground: MaterialShapeDrawable? = null
 
@@ -112,9 +112,7 @@ open class CornerSheetBehavior<V : View> :
 
     override fun onLayoutChild(parent: CoordinatorLayout, child: V, layoutDirection: Int): Boolean {
         val onLayoutChildResult = super.onLayoutChild(parent, child, layoutDirection)
-        if (viewRef == null) {
-            viewRef = WeakReference(child)
-
+        if (!isViewRefInitialized) {
             ViewCompat.setBackground(child, sheetBackground)
 
             val invertExpandedValue = child.width - expandedWidth.toFloat()
@@ -138,6 +136,8 @@ open class CornerSheetBehavior<V : View> :
                 override fun onStateChanged(bottomSheet: View, newState: Int) {
                 }
             })
+
+            isViewRefInitialized = true
         }
 
         return onLayoutChildResult
@@ -185,12 +185,12 @@ open class CornerSheetBehavior<V : View> :
 
     override fun onAttachedToLayoutParams(layoutParams: CoordinatorLayout.LayoutParams) {
         super.onAttachedToLayoutParams(layoutParams)
-        viewRef = null
+        isViewRefInitialized = false
     }
 
     override fun onDetachedFromLayoutParams() {
         super.onDetachedFromLayoutParams()
-        viewRef = null
+        isViewRefInitialized = false
     }
 
     @IntDef(
