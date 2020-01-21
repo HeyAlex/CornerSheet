@@ -1,30 +1,33 @@
-package com.github.heyalex.behavior
+package com.google.android.material.bottomsheet
 
 import android.animation.ValueAnimator
 import android.content.Context
 import android.content.res.ColorStateList
+import android.content.res.TypedArray
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
 import androidx.annotation.ColorInt
 import androidx.annotation.IntDef
+import androidx.annotation.StyleableRes
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.ViewCompat
 import com.github.heyalex.R
 import com.github.heyalex.lerp
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
 import java.lang.ref.WeakReference
 
-class CornerSheetBehavior<V : View> :
+open class CornerSheetBehavior<V : View> :
     BottomSheetBehavior<V> {
 
     private var horizontalPeekWidth: Int = -1
     private var expandedWidth: Int = 0
     private var expandingRatio: Float = 0.2f
-    private var horizontalState: Int = STATE_EXPANDED
+    private var horizontalState: Int =
+        STATE_EXPANDED
 
     private var sheetBackground: MaterialShapeDrawable? = null
 
@@ -66,9 +69,19 @@ class CornerSheetBehavior<V : View> :
             ).build()
         )
 
+        val typedArrayBottomSheet =
+            context.obtainStyledAttributes(attrs, R.styleable.BottomSheetBehavior_Layout)
 
-        if (backgroundColor != -1) {
-            sheetBackground?.fillColor = ColorStateList.valueOf(backgroundColor)
+        val bottomSheetColor =
+            getColorStateList(
+                context,
+                typedArrayBottomSheet,
+                com.google.android.material.R.styleable.BottomSheetBehavior_Layout_backgroundTint
+            )
+
+        typedArrayBottomSheet.recycle()
+        if (bottomSheetColor != null) {
+            sheetBackground?.fillColor = bottomSheetColor
         } else {
             val defaultColor = TypedValue()
             context.theme.resolveAttribute(android.R.attr.colorBackground, defaultColor, true)
@@ -194,5 +207,21 @@ class CornerSheetBehavior<V : View> :
         const val STATE_EXPANDED = 3
         const val STATE_COLLAPSED = 4
         const val STATE_HIDDEN = 5
+
+        fun getColorStateList(
+            context: Context, attributes: TypedArray, @StyleableRes index: Int
+        ): ColorStateList? {
+            if (attributes.hasValue(index)) {
+                val resourceId = attributes.getResourceId(index, 0)
+                if (resourceId != 0) {
+                    val value =
+                        AppCompatResources.getColorStateList(context, resourceId)
+                    if (value != null) {
+                        return value
+                    }
+                }
+            }
+            return attributes.getColorStateList(index)
+        }
     }
 }
