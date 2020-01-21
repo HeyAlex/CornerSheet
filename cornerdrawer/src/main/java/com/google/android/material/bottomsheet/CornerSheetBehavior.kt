@@ -31,8 +31,6 @@ open class CornerSheetBehavior<V : View> :
 
     private var sheetBackground: MaterialShapeDrawable? = null
 
-    var viewReference: WeakReference<V>? = null
-
     @ColorInt
     private var backgroundColor: Int = -1
 
@@ -107,15 +105,15 @@ open class CornerSheetBehavior<V : View> :
     }
 
     fun getView(unit: ((V) -> Unit)) {
-        if (viewReference != null && viewReference!!.get() != null) {
-            unit.invoke(viewReference!!.get()!!)
+        if (viewRef != null && viewRef!!.get() != null) {
+            unit.invoke(viewRef!!.get()!!)
         }
     }
 
     override fun onLayoutChild(parent: CoordinatorLayout, child: V, layoutDirection: Int): Boolean {
         val onLayoutChildResult = super.onLayoutChild(parent, child, layoutDirection)
-        if (viewReference == null) {
-            viewReference = WeakReference(child)
+        if (viewRef == null) {
+            viewRef = WeakReference(child)
 
             ViewCompat.setBackground(child, sheetBackground)
 
@@ -187,12 +185,12 @@ open class CornerSheetBehavior<V : View> :
 
     override fun onAttachedToLayoutParams(layoutParams: CoordinatorLayout.LayoutParams) {
         super.onAttachedToLayoutParams(layoutParams)
-        viewReference = null
+        viewRef = null
     }
 
     override fun onDetachedFromLayoutParams() {
         super.onDetachedFromLayoutParams()
-        viewReference = null
+        viewRef = null
     }
 
     @IntDef(
