@@ -19,8 +19,7 @@ import com.github.heyalex.lerp
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
 
-open class CornerSheetBehavior<V : View> :
-    BottomSheetBehavior<V> {
+open class ExtendedBehavior<V : View> : BottomSheetBehavior<V> {
 
     private var horizontalPeekWidth: Int = -1
     private var expandedWidth: Int = 0
