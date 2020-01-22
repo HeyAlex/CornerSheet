@@ -18,21 +18,17 @@ import com.github.heyalex.R
 import com.github.heyalex.lerp
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
-import java.lang.ref.WeakReference
 
 open class CornerSheetBehavior<V : View> :
     BottomSheetBehavior<V> {
 
     private var horizontalPeekWidth: Int = -1
     private var expandedWidth: Int = 0
-    private var expandingRatio: Float = 0.2f
     private var horizontalState: Int = STATE_EXPANDED
+
+    private var expandingRatio: Float = 0.2f
     private var isViewRefInitialized: Boolean = false
-
     private var sheetBackground: MaterialShapeDrawable? = null
-
-    @ColorInt
-    private var backgroundColor: Int = -1
 
     constructor() : super()
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
@@ -51,11 +47,6 @@ open class CornerSheetBehavior<V : View> :
         expandedWidth = typedArray.getDimensionPixelSize(
             R.styleable.CornerSheetBehavior_Layout_behavior_expanded_width,
             0
-        )
-
-        backgroundColor = typedArray.getColor(
-            R.styleable.CornerSheetBehavior_Layout_background_shape_color,
-            -1
         )
 
         sheetBackground = MaterialShapeDrawable(
@@ -123,7 +114,6 @@ open class CornerSheetBehavior<V : View> :
                 child.translationX = invertExpandedValue
                 sheetBackground?.interpolation = 1f
             }
-
 
             addBottomSheetCallback(object :
                 BottomSheetCallback() {
