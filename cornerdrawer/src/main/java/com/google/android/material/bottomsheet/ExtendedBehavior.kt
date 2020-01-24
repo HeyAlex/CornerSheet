@@ -5,9 +5,12 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.content.res.TypedArray
 import android.util.AttributeSet
+import android.util.Log
 import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.LinearInterpolator
 import androidx.annotation.IntDef
 import androidx.annotation.StyleableRes
 import androidx.appcompat.content.res.AppCompatResources
@@ -21,6 +24,7 @@ import com.google.android.material.shape.ShapeAppearanceModel
 open class ExtendedBehavior<V : View> : BottomSheetBehavior<V> {
 
     private var horizontalPeekWidth: Int = 0
+    private var fullViewWidth: Int = 0
     private var expandedWidth: Int = 0
     private var currentWidth: Int = 0
     private var horizontalState: Int = STATE_EXPANDED
@@ -85,12 +89,12 @@ open class ExtendedBehavior<V : View> : BottomSheetBehavior<V> {
         getView {
             horizontalPeekWidth = width
 
-            if (state == BottomSheetBehavior.STATE_COLLAPSED || horizontalState != STATE_HIDDEN) {
+            if (state == BottomSheetBehavior.STATE_COLLAPSED) {
                 if (animate) {
-                    setHorizontalState(STATE_COLLAPSED)
+                    startAnimation(it)
                 } else {
                     expandedWidth = width
-                    it.translationX = it.width - width.toFloat()
+                    it.translationX = horizontalPeekWidth.toFloat()
                 }
             }
         }
@@ -106,7 +110,7 @@ open class ExtendedBehavior<V : View> : BottomSheetBehavior<V> {
         val onLayoutChildResult = super.onLayoutChild(parent, child, layoutDirection)
         if (!isViewRefInitialized) {
             ViewCompat.setBackground(child, sheetBackground)
-
+            fullViewWidth = child.width
             val invertExpandedValue = child.width - currentWidth.toFloat()
             if (state == BottomSheetBehavior.STATE_EXPANDED) {
                 child.translationX = 0f
@@ -150,25 +154,27 @@ open class ExtendedBehavior<V : View> : BottomSheetBehavior<V> {
         getView {
             if (horizontalState == state) return@getView
             horizontalState = state
-            ValueAnimator.ofFloat(0f, 1f).apply {
-                duration = 150
-                val start = currentWidth
-                val end = getMaxWidth()
-
-                addUpdateListener { animation ->
-                    val value = animation.animatedValue as Float
-                    val lerp = lerp(start.toFloat(), end.toFloat(), 0f, 1f, value)
-                    it.translationX = lerp
-                    android.util.Log.d(
-                        "animation_value",
-                        value.toString() + " with translationY: " + lerp
-                    )
-                    android.util.Log.d("animation_value", "Start: " + start + "  end: " + end)
-                }
-
-                currentWidth = end
-            }.start()
+            startAnimation(it)
         }
+    }
+
+    private fun startAnimation(view: V) {
+        ValueAnimator.ofFloat(0f, 1f).apply {
+            interpolator = AccelerateInterpolator()
+            duration = 150
+            val start = currentWidth
+            val end = view.width - getMaxWidth()
+
+            Log.d("animation_value", "Start: $start  End: $end")
+            addUpdateListener { animation ->
+                val value = animation.animatedValue as Float
+                val lerp = lerp(start.toFloat(), end.toFloat(), 0f, 1f, value)
+                view.translationX = lerp
+
+            }
+
+            currentWidth = end
+        }.start()
     }
 
     override fun onAttachedToLayoutParams(layoutParams: CoordinatorLayout.LayoutParams) {
