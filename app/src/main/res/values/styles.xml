@@ -12,7 +12,7 @@
 
     <style name="ShapeAppearance.CornerDrawer.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
         <item name="cornerFamily">cut</item>
-        <item name="cornerSize">100dp</item>
+        <item name="cornerSize">0dp</item>
     </style>
 
     <style name="ShapeAppearanceOverlay.CornerDrawer" parent="">

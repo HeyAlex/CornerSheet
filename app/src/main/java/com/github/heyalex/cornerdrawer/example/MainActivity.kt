@@ -7,11 +7,11 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.SeekBar
 import android.widget.TextView
-import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatSeekBar
-import com.github.heyalex.behavior.CornerSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.ExtendedBehavior
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val cornerDrawer = findViewById<View>(R.id.corner_behavior_container)
-        val behavior = BottomSheetBehavior.from(cornerDrawer) as CornerSheetBehavior
+        val behavior = BottomSheetBehavior.from(cornerDrawer) as ExtendedBehavior
 
 //        val header = findViewById<LinearLayout>(R.id.header_root)
 //
@@ -64,16 +64,31 @@ class MainActivity : AppCompatActivity() {
 
         val hello_world = findViewById<TextView>(R.id.hellow_world)
         hello_world.setOnClickListener {
-            val state1 = if (state) 0 else 1
+            val state1 = if (state) ExtendedBehavior.STATE_COLLAPSED else ExtendedBehavior.STATE_EXPANDED
             behavior.setHorizontalState(state1)
+//            behavior.state = BottomSheetBehavior.
             state = !state
         }
+        behavior.saveFlags = BottomSheetBehavior.SAVE_ALL
+
+        expand.setOnClickListener {
+            behavior.setHorizontalState(ExtendedBehavior.STATE_EXPANDED)
+        }
+
+        collapsed.setOnClickListener {
+            behavior.setHorizontalState(ExtendedBehavior.STATE_COLLAPSED)
+        }
+
+        hidden.setOnClickListener {
+            behavior.setHorizontalState(ExtendedBehavior.STATE_HIDDEN)
+        }
+
 
         val seekbar = findViewById<AppCompatSeekBar>(R.id.seek_peek_height)
-        seekbar.max = 500
+        seekbar.max = 1500
         seekbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                behavior.setHorizontalPeekHeight(progress, false)
+                behavior.setHorizontalPeekHeight(progress, true)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
@@ -124,3 +139,5 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
+
+class IZi<V: View>: ExtendedBehavior<V>()

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:appd="http://schemas.android.com/apk/res-auto"
 
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -15,26 +14,56 @@
         <TextView
             android:id="@+id/hellow_world"
             android:layout_width="wrap_content"
-            android:textSize="40sp"
             android:layout_height="wrap_content"
-            android:text="Hello World!"/>
+            android:text="Hello World!"
+            android:textSize="40sp" />
 
         <androidx.appcompat.widget.AppCompatSeekBar
             android:id="@+id/seek_peek_height"
-            android:layout_marginTop="100dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp" />
 
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hello World!" />
+
+        <LinearLayout
+            android:layout_marginTop="140dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/expand"
+                android:text="EXPAND"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/collapsed"
+                android:text="COLLAPSE"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/hidden"
+                android:text="HIDE"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
         <LinearLayout
             android:id="@+id/corner_behavior_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            app:layout_behavior="com.github.heyalex.behavior.CornerSheetBehavior"
+            app:backgroundTint="@color/colorAccent"
+            app:behavior_expanded_width="300dp"
+            app:behavior_horizontal_peekHeight="100dp"
             app:behavior_peekHeight="100dp"
-            app:behavior_horizontal_peekHeight="50dp"
-            app:behavior_expanded_width="290dp"
-            app:background_shape_color="@color/colorAccent"
+            app:layout_behavior="com.github.heyalex.behavior.CornerSheetBehavior"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CornerDrawer"
             tools:ignore="MissingPrefix">
 
@@ -47,32 +76,21 @@
                 app:title="Support"
                 app:titleTextColor="@android:color/transparent" />
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/transparent">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Hello World!" />
-
-
-            </FrameLayout>
         </LinearLayout>
 
 
         <!--<com.github.heyalex.CornerDrawer-->
-            <!--android:id="@+id/corner_drawer"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--app:content_color="@color/corner_drawer_header_color"-->
-            <!--app:content_view="@layout/corner_drawer_content"-->
-            <!--app:header_color="@color/corner_drawer_header_color"-->
-            <!--app:header_view="@layout/corner_drawer_header"-->
-            <!--app:horizontal_peek_height="50dp"-->
-            <!--app:layout_behavior="com.github.heyalex.CornerDrawerBehavior"-->
-            <!--app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CornerDrawer" />-->
+        <!--android:id="@+id/corner_drawer"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--app:content_color="@color/corner_drawer_header_color"-->
+        <!--app:content_view="@layout/corner_drawer_content"-->
+        <!--app:header_color="@color/corner_drawer_header_color"-->
+        <!--app:header_view="@layout/corner_drawer_header"-->
+        <!--app:horizontal_peek_height="50dp"-->
+        <!--app:layout_behavior="com.github.heyalex.CornerDrawerBehavior"-->
+        <!--app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CornerDrawer" />-->
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

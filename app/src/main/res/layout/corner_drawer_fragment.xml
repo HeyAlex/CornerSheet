@@ -5,14 +5,14 @@
     android:layout_height="match_parent"
     android:background="@color/colorAccent">
 
-    <com.github.heyalex.CornerDrawer
-        android:id="@+id/corner_drawer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:content_color="@color/colorPrimary"
-        app:content_view="@layout/corner_drawer_content"
-        app:header_color="@color/corner_drawer_header_color"
-        app:header_view="@layout/corner_drawer_header"
-        app:layout_behavior="com.github.heyalex.CornerDrawerBehavior"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CornerDrawer" />
+    <!--<com.github.heyalex.CornerDrawer-->
+        <!--android:id="@+id/corner_drawer"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--app:content_color="@color/colorPrimary"-->
+        <!--app:content_view="@layout/corner_drawer_content"-->
+        <!--app:header_color="@color/corner_drawer_header_color"-->
+        <!--app:header_view="@layout/corner_drawer_header"-->
+        <!--app:layout_behavior="com.github.heyalex.CornerDrawerBehavior"-->
+        <!--app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CornerDrawer" />-->
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

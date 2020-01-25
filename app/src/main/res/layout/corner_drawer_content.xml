@@ -11,15 +11,15 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/black"
+        android:background="@android:color/transparent"
         app:navigationIcon="@drawable/ic_keyboard_arrow_down_24dp"
         app:title="Support"
-        app:titleTextColor="@android:color/white" />
+        app:titleTextColor="@android:color/transparent" />
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white">
+        android:background="@android:color/transparent">
 
         <TextView
             android:layout_width="wrap_content"
