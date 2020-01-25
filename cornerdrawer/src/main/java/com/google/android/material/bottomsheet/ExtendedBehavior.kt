@@ -4,13 +4,13 @@ import android.animation.ValueAnimator
 import android.content.Context
 import android.content.res.ColorStateList
 import android.content.res.TypedArray
+import android.os.Parcel
+import android.os.Parcelable
 import android.util.AttributeSet
-import android.util.Log
 import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.AccelerateInterpolator
-import android.view.animation.LinearInterpolator
 import androidx.annotation.IntDef
 import androidx.annotation.StyleableRes
 import androidx.appcompat.content.res.AppCompatResources
@@ -81,15 +81,13 @@ open class ExtendedBehavior<V : View> : BottomSheetBehavior<V> {
         }
 
         typedArray.recycle()
-
-        currentWidth = getMaxWidth()
     }
 
     fun setHorizontalPeekHeight(width: Int, animate: Boolean) {
         getView {
             horizontalPeekWidth = width
 
-            if (state == BottomSheetBehavior.STATE_COLLAPSED) {
+            if (horizontalState == BottomSheetBehavior.STATE_COLLAPSED) {
                 if (animate) {
                     startAnimation(it)
                 } else {
@@ -97,6 +95,14 @@ open class ExtendedBehavior<V : View> : BottomSheetBehavior<V> {
                     it.translationX = horizontalPeekWidth.toFloat()
                 }
             }
+        }
+    }
+
+    fun setHorizontalState(@HorizontalState state: Int) {
+        getView {
+            if (horizontalState == state) return@getView
+            horizontalState = state
+            startAnimation(it)
         }
     }
 
@@ -111,19 +117,19 @@ open class ExtendedBehavior<V : View> : BottomSheetBehavior<V> {
         if (!isViewRefInitialized) {
             ViewCompat.setBackground(child, sheetBackground)
             fullViewWidth = child.width
-            val invertExpandedValue = child.width - currentWidth.toFloat()
+            currentWidth = getMaxWidth()
             if (state == BottomSheetBehavior.STATE_EXPANDED) {
                 child.translationX = 0f
                 sheetBackground?.interpolation = 0f
             } else {
-                child.translationX = invertExpandedValue
+                child.translationX = currentWidth.toFloat()
                 sheetBackground?.interpolation = 1f
             }
 
             addBottomSheetCallback(object :
                 BottomSheetCallback() {
                 override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                    val translationValue = child.width - getMaxWidth()
+                    val translationValue = getMaxWidth()
                     child.translationX =
                         lerp(translationValue.toFloat(), 0f, 0f, expandingRatio, slideOffset)
                     sheetBackground?.interpolation = lerp(1f, 0f, 0f, expandingRatio, slideOffset)
@@ -150,22 +156,13 @@ open class ExtendedBehavior<V : View> : BottomSheetBehavior<V> {
         }
     }
 
-    fun setHorizontalState(@HorizontalState state: Int) {
-        getView {
-            if (horizontalState == state) return@getView
-            horizontalState = state
-            startAnimation(it)
-        }
-    }
-
     private fun startAnimation(view: V) {
         ValueAnimator.ofFloat(0f, 1f).apply {
             interpolator = AccelerateInterpolator()
             duration = 150
             val start = currentWidth
-            val end = view.width - getMaxWidth()
+            val end = getMaxWidth()
 
-            Log.d("animation_value", "Start: $start  End: $end")
             addUpdateListener { animation ->
                 val value = animation.animatedValue as Float
                 val lerp = lerp(start.toFloat(), end.toFloat(), 0f, 1f, value)
@@ -188,12 +185,13 @@ open class ExtendedBehavior<V : View> : BottomSheetBehavior<V> {
     }
 
     private fun getMaxWidth(): Int {
-        return when (horizontalState) {
+        val width = when (horizontalState) {
             STATE_EXPANDED -> expandedWidth
             STATE_COLLAPSED -> horizontalPeekWidth
             STATE_HIDDEN -> 0
             else -> return 0
         }
+        return fullViewWidth - width
     }
 
     @IntDef(
