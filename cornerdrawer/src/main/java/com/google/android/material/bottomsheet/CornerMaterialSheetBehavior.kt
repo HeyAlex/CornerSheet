@@ -40,7 +40,7 @@ open class CornerMaterialSheetBehavior<V : View> : BottomSheetBehavior<V> {
 
     private var expandingRatio: Float = 0.2f
     private var isViewRefInitialized: Boolean = false
-    private var sheetBackground: MaterialShapeDrawable? = null
+    var sheetBackground: MaterialShapeDrawable? = null
 
     constructor() : super()
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {

@@ -1,9 +1,8 @@
 package com.github.heyalex
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.os.Build
-import android.os.Parcel
-import android.os.Parcelable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +10,7 @@ import android.view.WindowInsets
 import android.widget.FrameLayout
 import androidx.annotation.ColorInt
 import androidx.annotation.LayoutRes
+import androidx.core.content.ContextCompat
 import androidx.core.view.doOnLayout
 import com.github.heyalex.behavior.CornerSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -52,6 +52,16 @@ open class CornerDrawer : FrameLayout {
         contentViewRes =
             typedArray.getResourceId(R.styleable.CornerDrawer_content_view, View.NO_ID)
 
+        headerColor = typedArray.getColor(
+            R.styleable.CornerDrawer_header_color,
+            ContextCompat.getColor(context, R.color.corner_drawer_transparent)
+        )
+
+        contentColor = typedArray.getColor(
+            R.styleable.CornerDrawer_content_color,
+            ContextCompat.getColor(context, R.color.corner_drawer_transparent)
+        )
+
         typedArray.recycle()
 
         if (headerViewRes != View.NO_ID) {
@@ -81,6 +91,17 @@ open class CornerDrawer : FrameLayout {
             bottomSheetBehavior.addBottomSheetCallback(object :
                 BottomSheetBehavior.BottomSheetCallback() {
                 override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                    bottomSheetBehavior.sheetBackground?.interpolation =
+                        lerp(1f, 0f, 0f, 0.15f, slideOffset)
+                    bottomSheetBehavior.sheetBackground?.fillColor = ColorStateList.valueOf(
+                        lerpArgb(
+                            headerColor,
+                            contentColor,
+                            0f,
+                            0.3f,
+                            slideOffset
+                        )
+                    )
                     header.alpha = lerp(1f, 0f, 0f, 0.15f, slideOffset)
                     header.visibility = if (slideOffset < 0.5) View.VISIBLE else View.GONE
                     content.visibility = if (slideOffset > 0.2) View.VISIBLE else View.GONE
@@ -97,16 +118,15 @@ open class CornerDrawer : FrameLayout {
 
     protected open fun onStartState() {
         if (isExpanded) {
-//            translationX = 0f
             container.alpha = 1f
             header.alpha = 0f
-//            sheetBackground.fillColor = ColorStateList.valueOf(contentColor)
-//            sheetBackground.interpolation = 0f
+            val bottomSheetBehavior = BottomSheetBehavior.from(this) as CornerSheetBehavior
+            bottomSheetBehavior.sheetBackground?.fillColor = ColorStateList.valueOf(contentColor)
+            bottomSheetBehavior.sheetBackground?.interpolation = 0f
             header.visibility = View.GONE
             content.visibility = View.VISIBLE
             container.translationY = topInset.toFloat()
         } else {
-//            translationX = maxTranslationX
             header.visibility = View.VISIBLE
             content.visibility = View.GONE
             container.alpha = 0f

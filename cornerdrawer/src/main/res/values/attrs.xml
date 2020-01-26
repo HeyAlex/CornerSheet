@@ -3,6 +3,12 @@
     <declare-styleable name="CornerDrawer">
         <attr name="header_view" format="reference" />
         <attr name="content_view" format="reference" />
+        <attr name="header_color" format="reference"/>
+        <attr name="content_color" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="CornerSheet">
+        <attr name="content_sheet_view" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="CornerSheetBehavior_Layout">
