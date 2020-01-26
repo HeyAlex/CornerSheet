@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.github.heyalex.CornerDrawer
+            android:id="@+id/corner_drawer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:behavior_expanded_width="130dp"
+            app:behavior_horizontal_peekHeight="60dp"
+            app:content_view="@layout/corner_drawer_content"
+            app:header_view="@layout/corner_drawer_header"
+            app:header_color="@color/corner_drawer_header_color"
+            app:content_color="@color/corner_drawer_header_color"
+            app:layout_behavior="com.github.heyalex.behavior.CornerSheetBehavior"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CornerDrawer" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</FrameLayout>
