@@ -7,6 +7,7 @@ import android.content.res.TypedArray
 import android.os.Parcel
 import android.os.Parcelable
 import android.util.AttributeSet
+import android.util.Log
 import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
@@ -172,6 +173,74 @@ open class ExtendedBehavior<V : View> : BottomSheetBehavior<V> {
 
             currentWidth = end
         }.start()
+    }
+
+    override fun onSaveInstanceState(parent: CoordinatorLayout, child: V): Parcelable {
+        return CornerSavedState(super.onSaveInstanceState(parent, child), this)
+    }
+
+    override fun onRestoreInstanceState(
+        parent: CoordinatorLayout, child: V, state: Parcelable
+    ) {
+        val ss = state as CornerSavedState
+        super.onRestoreInstanceState(parent, child, ss.superState!!)
+        this.horizontalState = ss.horizontalState
+        this.horizontalPeekWidth = ss.horizontalPeekHeight
+        this.expandedWidth = ss.expandedWidth
+    }
+
+    protected class CornerSavedState : SavedState {
+
+        @HorizontalState
+        internal val horizontalState: Int
+        internal var horizontalPeekHeight: Int = 0
+        internal var expandedWidth: Int = 0
+
+        constructor(source: Parcel, horizontalState: Int) : super(source, null) {
+            this.horizontalState = horizontalState
+        }
+
+        constructor(source: Parcel, loader: ClassLoader?) : super(source, loader){
+            horizontalState = source.readInt()
+            horizontalPeekHeight = source.readInt()
+            expandedWidth = source.readInt()
+        }
+
+        constructor(superState: Parcelable, behavior: ExtendedBehavior<*>): super(superState, behavior) {
+            this.horizontalState = behavior.horizontalState
+            this.horizontalPeekHeight = behavior.horizontalPeekWidth
+            this.expandedWidth = behavior.expandedWidth
+        }
+
+        @Deprecated("Use {@link SavedState(Parcelable, ExtendedBehavior)} instead.")
+        constructor(superstate: Parcelable, state: Int): super(superstate, state) {
+            this.horizontalState = state
+        }
+
+        override fun writeToParcel(out: Parcel, flags: Int) {
+            super.writeToParcel(out, flags)
+            out.writeInt(horizontalState)
+            out.writeInt(horizontalPeekHeight)
+            out.writeInt(expandedWidth)
+        }
+
+        override fun describeContents(): Int {
+            return 0
+        }
+
+        companion object CREATOR : Parcelable.ClassLoaderCreator<CornerSavedState> {
+            override fun createFromParcel(`in`: Parcel, loader: ClassLoader): CornerSavedState {
+                return CornerSavedState(`in`, loader)
+            }
+
+            override fun createFromParcel(`in`: Parcel): CornerSavedState? {
+                return CornerSavedState(`in`, null)
+            }
+
+            override fun newArray(size: Int): Array<CornerSavedState?> {
+                return arrayOfNulls(size)
+            }
+        }
     }
 
     override fun onAttachedToLayoutParams(layoutParams: CoordinatorLayout.LayoutParams) {
