@@ -7,7 +7,6 @@ import android.content.res.TypedArray
 import android.os.Parcel
 import android.os.Parcelable
 import android.util.AttributeSet
-import android.util.Log
 import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
@@ -22,7 +21,16 @@ import com.github.heyalex.lerp
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
 
-open class ExtendedBehavior<V : View> : BottomSheetBehavior<V> {
+/**
+ * An inheritor of BottomSheetBehavior
+ *
+ * Changing translation X depends on slide offset of BottomSheetBehavior
+ *
+ * This class is in com.google.android.material.bottomsheet package,
+ * since we need access to internal field like "viewRef"
+ * and fetching style attr like "backgroundTint"
+ */
+open class CornerMaterialSheetBehavior<V : View> : BottomSheetBehavior<V> {
 
     private var horizontalPeekWidth: Int = 0
     private var fullViewWidth: Int = 0
@@ -189,6 +197,7 @@ open class ExtendedBehavior<V : View> : BottomSheetBehavior<V> {
         this.expandedWidth = ss.expandedWidth
     }
 
+    
     protected class CornerSavedState : SavedState {
 
         @HorizontalState
@@ -206,13 +215,13 @@ open class ExtendedBehavior<V : View> : BottomSheetBehavior<V> {
             expandedWidth = source.readInt()
         }
 
-        constructor(superState: Parcelable, behavior: ExtendedBehavior<*>): super(superState, behavior) {
+        constructor(superState: Parcelable, behavior: CornerMaterialSheetBehavior<*>): super(superState, behavior) {
             this.horizontalState = behavior.horizontalState
             this.horizontalPeekHeight = behavior.horizontalPeekWidth
             this.expandedWidth = behavior.expandedWidth
         }
 
-        @Deprecated("Use {@link SavedState(Parcelable, ExtendedBehavior)} instead.")
+        @Deprecated("Use {@link SavedState(Parcelable, CornerMaterialSheetBehavior)} instead.")
         constructor(superstate: Parcelable, state: Int): super(superstate, state) {
             this.horizontalState = state
         }
