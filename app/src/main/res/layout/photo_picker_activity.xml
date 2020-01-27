@@ -19,7 +19,7 @@
             app:content_view="@layout/corner_drawer_content"
             app:header_view="@layout/corner_drawer_header"
             app:header_color="@color/corner_drawer_header_color"
-            app:content_color="@color/corner_drawer_header_color"
+            app:content_color="@color/corner_drawer_transparent"
             app:layout_behavior="com.github.heyalex.behavior.CornerSheetBehavior"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CornerDrawer" />
 
