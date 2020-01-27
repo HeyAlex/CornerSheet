@@ -2,6 +2,7 @@ package com.github.heyalex
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Build
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -22,7 +23,6 @@ open class CornerDrawer : FrameLayout {
 
     @LayoutRes
     private var contentViewRes: Int = 0
-
 
     @ColorInt
     private var contentColor: Int = 0
@@ -86,6 +86,7 @@ open class CornerDrawer : FrameLayout {
             val bottomSheetBehavior = BottomSheetBehavior.from(this) as CornerSheetBehavior
             bottomSheetBehavior.peekHeight = header.height + bottomInset
             bottomSheetBehavior.setHorizontalPeekHeight(header.width, false)
+            bottomSheetBehavior.sheetBackground?.tintList = null
             onStartState()
 
             bottomSheetBehavior.addBottomSheetCallback(object :
