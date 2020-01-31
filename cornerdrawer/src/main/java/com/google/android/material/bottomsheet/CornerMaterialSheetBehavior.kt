@@ -17,7 +17,7 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.ViewCompat
 import com.github.heyalex.R
-import com.github.heyalex.lerp
+import com.github.heyalex.interpolate
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
 
@@ -107,6 +107,10 @@ open class CornerMaterialSheetBehavior<V : View> : BottomSheetBehavior<V> {
         }
     }
 
+    fun setExpandedState(width: Int) {
+        expandedWidth = width
+    }
+
     fun setHorizontalState(@HorizontalState state: Int) {
         getView {
             if (horizontalState == state) return@getView
@@ -134,14 +138,16 @@ open class CornerMaterialSheetBehavior<V : View> : BottomSheetBehavior<V> {
                 child.translationX = currentWidth.toFloat()
                 sheetBackground?.interpolation = 1f
             }
-
+            initLayoutChild(child)
             addBottomSheetCallback(object :
                 BottomSheetCallback() {
                 override fun onSlide(bottomSheet: View, slideOffset: Float) {
                     val translationValue = getMaxWidth()
                     child.translationX =
-                        lerp(translationValue.toFloat(), 0f, 0f, expandingRatio, slideOffset)
-                    sheetBackground?.interpolation = lerp(1f, 0f, 0f, expandingRatio, slideOffset)
+                        interpolate(translationValue.toFloat(), 0f, 0f, expandingRatio, slideOffset)
+                    sheetBackground?.interpolation =
+                        interpolate(1f, 0f, 0f, expandingRatio, slideOffset)
+                    internalOnSlide(slideOffset)
                 }
 
                 override fun onStateChanged(bottomSheet: View, newState: Int) {
@@ -153,6 +159,9 @@ open class CornerMaterialSheetBehavior<V : View> : BottomSheetBehavior<V> {
 
         return onLayoutChildResult
     }
+
+    open fun internalOnSlide(slideOffset: Float) {}
+    open fun initLayoutChild(view: V) {}
 
     override fun onTouchEvent(parent: CoordinatorLayout, child: V, event: MotionEvent): Boolean {
         return if (event.x < child.translationX) {
@@ -174,7 +183,7 @@ open class CornerMaterialSheetBehavior<V : View> : BottomSheetBehavior<V> {
 
             addUpdateListener { animation ->
                 val value = animation.animatedValue as Float
-                val lerp = lerp(start.toFloat(), end.toFloat(), 0f, 1f, value)
+                val lerp = interpolate(start.toFloat(), end.toFloat(), 0f, 1f, value)
                 view.translationX = lerp
 
             }
@@ -197,7 +206,7 @@ open class CornerMaterialSheetBehavior<V : View> : BottomSheetBehavior<V> {
         this.expandedWidth = ss.expandedWidth
     }
 
-    
+
     protected class CornerSavedState : SavedState {
 
         @HorizontalState
@@ -209,20 +218,23 @@ open class CornerMaterialSheetBehavior<V : View> : BottomSheetBehavior<V> {
             this.horizontalState = horizontalState
         }
 
-        constructor(source: Parcel, loader: ClassLoader?) : super(source, loader){
+        constructor(source: Parcel, loader: ClassLoader?) : super(source, loader) {
             horizontalState = source.readInt()
             horizontalPeekHeight = source.readInt()
             expandedWidth = source.readInt()
         }
 
-        constructor(superState: Parcelable, behavior: CornerMaterialSheetBehavior<*>): super(superState, behavior) {
+        constructor(superState: Parcelable, behavior: CornerMaterialSheetBehavior<*>) : super(
+            superState,
+            behavior
+        ) {
             this.horizontalState = behavior.horizontalState
             this.horizontalPeekHeight = behavior.horizontalPeekWidth
             this.expandedWidth = behavior.expandedWidth
         }
 
         @Deprecated("Use {@link SavedState(Parcelable, CornerMaterialSheetBehavior)} instead.")
-        constructor(superstate: Parcelable, state: Int): super(superstate, state) {
+        constructor(superstate: Parcelable, state: Int) : super(superstate, state) {
             this.horizontalState = state
         }
 

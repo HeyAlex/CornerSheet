@@ -4,10 +4,7 @@ import androidx.annotation.ColorInt
 import androidx.annotation.FloatRange
 import com.google.android.material.animation.ArgbEvaluatorCompat
 
-/**
- * Linearly interpolate between two values
- */
-fun lerp(
+fun interpolate(
     startValue: Float,
     endValue: Float,
     @FloatRange(from = 0.0, fromInclusive = true, to = 1.0, toInclusive = true) fraction: Float
@@ -15,10 +12,7 @@ fun lerp(
     return startValue + fraction * (endValue - startValue)
 }
 
-/**
- * Linearly interpolate between two values when the fraction is in a given range.
- */
-fun lerp(
+fun interpolate(
     startValue: Float,
     endValue: Float,
     @FloatRange(
@@ -33,14 +27,15 @@ fun lerp(
     if (fraction < startFraction) return startValue
     if (fraction > endFraction) return endValue
 
-    return lerp(startValue, endValue, (fraction - startFraction) / (endFraction - startFraction))
+    return interpolate(
+        startValue,
+        endValue,
+        (fraction - startFraction) / (endFraction - startFraction)
+    )
 }
 
-/**
- * Linearly interpolate between two colors when the fraction is in a given range.
- */
 @ColorInt
-fun lerpArgb(
+fun interpolateArgb(
     @ColorInt startColor: Int,
     @ColorInt endColor: Int,
     @FloatRange(
@@ -55,18 +50,15 @@ fun lerpArgb(
     if (fraction < startFraction) return startColor
     if (fraction > endFraction) return endColor
 
-    return lerpArgb(
+    return interpolateArgb(
         startColor,
         endColor,
         (fraction - startFraction) / (endFraction - startFraction)
     )
 }
 
-/**
- * Linearly interpolate between two colors when the fraction is in a given range.
- */
 @ColorInt
-fun lerpArgb(
+fun interpolateArgb(
     @ColorInt startColor: Int,
     @ColorInt endColor: Int,
     @FloatRange(from = 0.0, fromInclusive = true, to = 1.0, toInclusive = true) fraction: Float
