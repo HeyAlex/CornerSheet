@@ -2,7 +2,6 @@ package com.github.heyalex
 
 import android.content.Context
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Build
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -11,12 +10,14 @@ import android.view.WindowInsets
 import android.widget.FrameLayout
 import androidx.annotation.ColorInt
 import androidx.annotation.LayoutRes
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.doOnLayout
 import com.github.heyalex.behavior.CornerSheetBehavior
+import com.github.heyalex.behavior.CornerSheetHeaderBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
-open class CornerDrawer : FrameLayout {
+open class CornerDrawer : FrameLayout {//, CoordinatorLayout.AttachedBehavior {
 
     @LayoutRes
     protected var headerViewRes: Int = 0
@@ -25,29 +26,29 @@ open class CornerDrawer : FrameLayout {
     private var contentViewRes: Int = 0
 
     @ColorInt
-    private var contentColor: Int = 0
+    internal var contentColor: Int = 0
 
     @ColorInt
-    private var headerColor: Int = 0
+    internal var headerColor: Int = 0
 
-    private val container: FrameLayout
-    private lateinit var header: View
-    private lateinit var content: View
+    internal val container: FrameLayout
+    internal var header: View? = null
+    internal var content: View? = null
 
-    private var bottomInset: Int = 0
-    private var topInset: Int = 0
-    private var isExpanded: Boolean = false
+    internal var bottomInset: Int = 0
+    internal var topInset: Int = 0
+//    private var attributeSet: AttributeSet? = null
 
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int)
         : super(context, attrs, defStyleAttr) {
-
+//        attributeSet = attrs
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.CornerDrawer)
 
         headerViewRes =
-            typedArray.getResourceId(R.styleable.CornerDrawer_header_view, getHeaderStub())
+            typedArray.getResourceId(R.styleable.CornerDrawer_header_view, View.NO_ID)
 
         contentViewRes =
             typedArray.getResourceId(R.styleable.CornerDrawer_content_view, View.NO_ID)
@@ -81,58 +82,6 @@ open class CornerDrawer : FrameLayout {
         super.addView(header)
         super.addView(container)
         addView(content)
-
-        doOnLayout {
-            val bottomSheetBehavior = BottomSheetBehavior.from(this) as CornerSheetBehavior
-            bottomSheetBehavior.peekHeight = header.height + bottomInset
-            bottomSheetBehavior.setHorizontalPeekHeight(header.width, false)
-            bottomSheetBehavior.sheetBackground?.tintList = null
-            onStartState()
-
-            bottomSheetBehavior.addBottomSheetCallback(object :
-                BottomSheetBehavior.BottomSheetCallback() {
-                override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                    bottomSheetBehavior.sheetBackground?.interpolation =
-                        lerp(1f, 0f, 0f, 0.15f, slideOffset)
-                    bottomSheetBehavior.sheetBackground?.fillColor = ColorStateList.valueOf(
-                        lerpArgb(
-                            headerColor,
-                            contentColor,
-                            0f,
-                            0.3f,
-                            slideOffset
-                        )
-                    )
-                    header.alpha = lerp(1f, 0f, 0f, 0.15f, slideOffset)
-                    header.visibility = if (slideOffset < 0.5) View.VISIBLE else View.GONE
-                    content.visibility = if (slideOffset > 0.2) View.VISIBLE else View.GONE
-                    container.alpha = lerp(0f, 1f, 0.2f, 0.8f, slideOffset)
-                }
-
-                override fun onStateChanged(bottomSheet: View, newState: Int) {
-                }
-            })
-        }
-    }
-
-    protected open fun getHeaderStub() = View.NO_ID
-
-    protected open fun onStartState() {
-        if (isExpanded) {
-            container.alpha = 1f
-            header.alpha = 0f
-            val bottomSheetBehavior = BottomSheetBehavior.from(this) as CornerSheetBehavior
-            bottomSheetBehavior.sheetBackground?.fillColor = ColorStateList.valueOf(contentColor)
-            bottomSheetBehavior.sheetBackground?.interpolation = 0f
-            header.visibility = View.GONE
-            content.visibility = View.VISIBLE
-            container.translationY = topInset.toFloat()
-        } else {
-            header.visibility = View.VISIBLE
-            content.visibility = View.GONE
-            container.alpha = 0f
-            content.visibility = View.GONE
-        }
     }
 
     override fun addView(child: View?) {
@@ -146,6 +95,20 @@ open class CornerDrawer : FrameLayout {
         }
         return super.onApplyWindowInsets(insets)
     }
+
+//    override fun getBehavior(): CoordinatorLayout.Behavior<*> {
+//        return attributeSet?.let {
+//            val  attrs = layoutParams as CoordinatorLayout.LayoutParams
+//            CornerSheetHeaderBehavior<View>(context, it).also { behavior ->
+//                behavior.container = container
+//                behavior.content = content
+//                behavior.header = header
+//                behavior.contentColor = contentColor
+//                behavior.headerColor = headerColor
+////                this.setTag(R.id.behavior_tag, behavior)
+//            }
+//        } ?:CornerSheetHeaderBehavior<View>()
+//    }
 
 //    override fun onSaveInstanceState(): Parcelable {
 //        val superState = super.onSaveInstanceState()
