@@ -17,8 +17,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".BehaviorSampleActivity"/>
         <activity android:name=".PhotoPickerSampleActivity"/>
+        <activity android:name=".SupportSampleActivity"/>
     </application>
 
 </manifest>

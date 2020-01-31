@@ -11,7 +11,7 @@ class ExampleActivity : Activity() {
         setContentView(R.layout.example_activity)
 
         findViewById<Button>(R.id.main).setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, BehaviorSampleActivity::class.java)
             startActivity(intent)
         }
 
@@ -21,7 +21,7 @@ class ExampleActivity : Activity() {
         }
 
         findViewById<Button>(R.id.support_sample).setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, BehaviorSampleActivity::class.java)
             startActivity(intent)
         }
     }

@@ -5,20 +5,20 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import android.widget.LinearLayout
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatSeekBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.ExtendedBehavior
+import com.google.android.material.bottomsheet.CornerMaterialSheetBehavior
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class BehaviorSampleActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        R.styleable.BottomSheetBehavior_Layout
         window.let {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
@@ -52,35 +52,18 @@ class MainActivity : AppCompatActivity() {
         }
 
         val cornerDrawer = findViewById<View>(R.id.corner_behavior_container)
-        val behavior = BottomSheetBehavior.from(cornerDrawer) as ExtendedBehavior
-
-//        val header = findViewById<LinearLayout>(R.id.header_root)
-//
-//        header.setOnClickListener {
-//            behavior.state = BottomSheetBehavior.STATE_EXPANDED
-//        }
-
-        var state = false
-
-        val hello_world = findViewById<TextView>(R.id.hellow_world)
-        hello_world.setOnClickListener {
-            val state1 = if (state) ExtendedBehavior.STATE_COLLAPSED else ExtendedBehavior.STATE_EXPANDED
-            behavior.setHorizontalState(state1)
-//            behavior.state = BottomSheetBehavior.
-            state = !state
-        }
-        behavior.saveFlags = BottomSheetBehavior.SAVE_ALL
+        val behavior = BottomSheetBehavior.from(cornerDrawer) as CornerMaterialSheetBehavior
 
         expand.setOnClickListener {
-            behavior.setHorizontalState(ExtendedBehavior.STATE_EXPANDED)
+            behavior.setHorizontalState(CornerMaterialSheetBehavior.STATE_EXPANDED)
         }
 
         collapsed.setOnClickListener {
-            behavior.setHorizontalState(ExtendedBehavior.STATE_COLLAPSED)
+            behavior.setHorizontalState(CornerMaterialSheetBehavior.STATE_COLLAPSED)
         }
 
         hidden.setOnClickListener {
-            behavior.setHorizontalState(ExtendedBehavior.STATE_HIDDEN)
+            behavior.setHorizontalState(CornerMaterialSheetBehavior.STATE_HIDDEN)
         }
 
 
@@ -98,6 +81,7 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
+
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             toolbar.setNavigationOnClickListener {
@@ -139,5 +123,3 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
-
-class IZi<V: View>: ExtendedBehavior<V>()
