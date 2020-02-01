@@ -112,6 +112,10 @@ open class CornerMaterialSheetBehavior<V : View> : BottomSheetBehavior<V> {
         expandedWidth = width
     }
 
+    fun setExpandingRation(@FloatRange(from = 0.0, to = 1.0) ration: Float) {
+        expandingRatio = ration
+    }
+
     fun setHorizontalState(@HorizontalState state: Int) {
         getView {
             if (horizontalState == state) return@getView
