@@ -11,6 +11,7 @@ import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.AccelerateInterpolator
+import androidx.annotation.FloatRange
 import androidx.annotation.IntDef
 import androidx.annotation.StyleableRes
 import androidx.appcompat.content.res.AppCompatResources
