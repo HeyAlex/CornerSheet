@@ -81,6 +81,6 @@ class CornerSheetHeaderBehavior<V : CornerDrawer> : CornerSheetBehavior<V> {
         header?.visibility = if (slideOffset < 0.5) View.VISIBLE else View.GONE
         content?.visibility = if (slideOffset > 0.2) View.VISIBLE else View.GONE
         container?.alpha = interpolate(0f, 1f, 0.2f, 0.8f, slideOffset)
-        container?.translationY = interpolate(0f, topInset.toFloat(), 0.75f, 1f, slideOffset)
+        container?.translationY = interpolate(0f, topInset.toFloat(), 0.55f, 1f, slideOffset)
     }
 }
