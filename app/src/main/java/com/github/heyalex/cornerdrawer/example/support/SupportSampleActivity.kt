@@ -1,6 +1,5 @@
 package com.github.heyalex.cornerdrawer.example.support
 
-import android.app.Activity
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -8,11 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.FragmentActivity
 import com.github.heyalex.behavior.CornerSheetHeaderBehavior
 import com.github.heyalex.cornerdrawer.example.R
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
-class SupportSampleActivity : Activity() {
+class SupportSampleActivity : FragmentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
