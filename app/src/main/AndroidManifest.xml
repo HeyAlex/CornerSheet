@@ -19,7 +19,7 @@
 
         <activity android:name=".BehaviorSampleActivity"/>
         <activity android:name=".PhotoPickerSampleActivity"/>
-        <activity android:name=".SupportSampleActivity"/>
+        <activity android:name=".support.SupportSampleActivity"/>
     </application>
 
 </manifest>
