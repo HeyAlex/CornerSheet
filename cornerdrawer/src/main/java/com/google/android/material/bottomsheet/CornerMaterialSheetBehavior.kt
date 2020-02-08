@@ -37,7 +37,7 @@ open class CornerMaterialSheetBehavior<V : View> : BottomSheetBehavior<V> {
     private var fullViewWidth: Int = 0
     private var expandedWidth: Int = 0
     private var currentWidth: Int = 0
-    private var horizontalState: Int = STATE_EXPANDED
+    private var horizontalState: Int = STATE_HIDDEN
 
     private var expandingRatio: Float = 0.2f
     private var isViewRefInitialized: Boolean = false
@@ -117,9 +117,10 @@ open class CornerMaterialSheetBehavior<V : View> : BottomSheetBehavior<V> {
     }
 
     fun setHorizontalState(@HorizontalState state: Int) {
+        if (horizontalState == state) return
+
+        horizontalState = state
         getView {
-            if (horizontalState == state) return@getView
-            horizontalState = state
             startAnimation(it)
         }
     }
