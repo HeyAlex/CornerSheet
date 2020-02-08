@@ -18,6 +18,7 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.ViewCompat
 import com.github.heyalex.R
+import com.github.heyalex.behavior.CornerSheetBehavior
 import com.github.heyalex.interpolate
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
@@ -37,7 +38,7 @@ open class CornerMaterialSheetBehavior<V : View> : BottomSheetBehavior<V> {
     private var fullViewWidth: Int = 0
     private var expandedWidth: Int = 0
     private var currentWidth: Int = 0
-    private var horizontalState: Int = STATE_HIDDEN
+    private var horizontalState: Int = CornerSheetBehavior.STATE_HIDDEN
 
     private var expandingRatio: Float = 0.2f
     private var isViewRefInitialized: Boolean = false
@@ -97,7 +98,7 @@ open class CornerMaterialSheetBehavior<V : View> : BottomSheetBehavior<V> {
         getView {
             horizontalPeekWidth = width
 
-            if (horizontalState == BottomSheetBehavior.STATE_COLLAPSED) {
+            if (horizontalState == STATE_COLLAPSED) {
                 if (animate) {
                     startAnimation(it)
                 } else {
@@ -137,7 +138,7 @@ open class CornerMaterialSheetBehavior<V : View> : BottomSheetBehavior<V> {
             ViewCompat.setBackground(child, sheetBackground)
             fullViewWidth = child.width
             currentWidth = getMaxWidth()
-            if (state == BottomSheetBehavior.STATE_EXPANDED) {
+            if (state == STATE_EXPANDED) {
                 child.translationX = 0f
                 sheetBackground?.interpolation = 0f
             } else {
@@ -171,8 +172,8 @@ open class CornerMaterialSheetBehavior<V : View> : BottomSheetBehavior<V> {
 
     override fun onTouchEvent(parent: CoordinatorLayout, child: V, event: MotionEvent): Boolean {
         return if (event.x < child.translationX) {
-            if (state == STATE_DRAGGING) {
-                state = BottomSheetBehavior.STATE_COLLAPSED
+            if (state == STATE_DRAGGING || state == STATE_SETTLING) {
+                settleToState(child, STATE_COLLAPSED)
             }
             false
         } else {
@@ -282,26 +283,23 @@ open class CornerMaterialSheetBehavior<V : View> : BottomSheetBehavior<V> {
 
     private fun getMaxWidth(): Int {
         val width = when (horizontalState) {
-            STATE_EXPANDED -> expandedWidth
-            STATE_COLLAPSED -> horizontalPeekWidth
-            STATE_HIDDEN -> 0
+            CornerSheetBehavior.STATE_EXPANDED -> expandedWidth
+            CornerSheetBehavior.STATE_COLLAPSED -> horizontalPeekWidth
+            CornerSheetBehavior.STATE_HIDDEN -> 0
             else -> return 0
         }
         return fullViewWidth - width
     }
 
     @IntDef(
-        STATE_EXPANDED,
-        STATE_COLLAPSED,
-        STATE_HIDDEN
+        CornerSheetBehavior.STATE_EXPANDED,
+        CornerSheetBehavior.STATE_COLLAPSED,
+        CornerSheetBehavior.STATE_HIDDEN
     )
     @Retention(AnnotationRetention.SOURCE)
     annotation class HorizontalState
 
     companion object {
-        const val STATE_EXPANDED = 3
-        const val STATE_COLLAPSED = 4
-        const val STATE_HIDDEN = 5
 
         fun getColorStateList(
             context: Context, attributes: TypedArray, @StyleableRes index: Int

@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatSeekBar
+import com.github.heyalex.behavior.CornerSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.CornerMaterialSheetBehavior
 import kotlinx.android.synthetic.main.activity_main.*
@@ -19,15 +20,15 @@ class BehaviorSampleActivity : AppCompatActivity() {
         val behavior = BottomSheetBehavior.from(cornerDrawer) as CornerMaterialSheetBehavior
 
         expand.setOnClickListener {
-            behavior.setHorizontalState(CornerMaterialSheetBehavior.STATE_EXPANDED)
+            behavior.setHorizontalState(CornerSheetBehavior.STATE_EXPANDED)
         }
 
         collapsed.setOnClickListener {
-            behavior.setHorizontalState(CornerMaterialSheetBehavior.STATE_COLLAPSED)
+            behavior.setHorizontalState(CornerSheetBehavior.STATE_COLLAPSED)
         }
 
         hidden.setOnClickListener {
-            behavior.setHorizontalState(CornerMaterialSheetBehavior.STATE_HIDDEN)
+            behavior.setHorizontalState(CornerSheetBehavior.STATE_HIDDEN)
         }
 
         val seekbar = findViewById<AppCompatSeekBar>(R.id.seek_peek_height)
