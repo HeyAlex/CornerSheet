@@ -171,10 +171,7 @@ open class CornerMaterialSheetBehavior<V : View> : BottomSheetBehavior<V> {
     open fun initLayoutChild(view: V) {}
 
     override fun onTouchEvent(parent: CoordinatorLayout, child: V, event: MotionEvent): Boolean {
-        return if (event.x < child.translationX) {
-            if (state == STATE_DRAGGING || state == STATE_SETTLING) {
-                settleToState(child, STATE_COLLAPSED)
-            }
+        return if (event.x < child.translationX && state != STATE_DRAGGING) {
             false
         } else {
             super.onTouchEvent(parent, child, event)
