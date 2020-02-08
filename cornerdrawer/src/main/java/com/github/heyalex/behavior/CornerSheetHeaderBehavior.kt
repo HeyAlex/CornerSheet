@@ -14,6 +14,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 class CornerSheetHeaderBehavior<V : CornerDrawer> : CornerSheetBehavior<V> {
     constructor() : super()
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
+    var peekHeightListener: OnPeekHeightListener? = null
 
     @ColorInt
     private var contentColor: Int = 0
@@ -40,6 +41,7 @@ class CornerSheetHeaderBehavior<V : CornerDrawer> : CornerSheetBehavior<V> {
 
         val height = header?.height ?: 0
         peekHeight = height + bottomInset
+        onPeekHeightChanged(peekHeight)
         sheetBackground?.tintList = null
         onStartState()
     }
@@ -82,5 +84,13 @@ class CornerSheetHeaderBehavior<V : CornerDrawer> : CornerSheetBehavior<V> {
         content?.visibility = if (slideOffset > 0.2) View.VISIBLE else View.GONE
         container?.alpha = interpolate(0f, 1f, 0.2f, 0.8f, slideOffset)
         container?.translationY = interpolate(0f, topInset.toFloat(), 0.55f, 1f, slideOffset)
+    }
+
+    fun onPeekHeightChanged(newPeekHeight: Int) {
+        peekHeightListener?.onPeekHeightChanged(newPeekHeight)
+    }
+
+    interface OnPeekHeightListener {
+        fun onPeekHeightChanged(newPeekHeight: Int)
     }
 }
