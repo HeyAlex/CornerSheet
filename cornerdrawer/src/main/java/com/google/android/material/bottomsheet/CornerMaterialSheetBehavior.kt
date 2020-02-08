@@ -38,7 +38,7 @@ open class CornerMaterialSheetBehavior<V : View> : BottomSheetBehavior<V> {
     private var fullViewWidth: Int = 0
     private var expandedWidth: Int = 0
     private var currentWidth: Int = 0
-    private var horizontalState: Int = CornerSheetBehavior.STATE_HIDDEN
+    private var horizontalState: Int = CornerSheetBehavior.STATE_COLLAPSED
 
     private var expandingRatio: Float = 0.2f
     private var isViewRefInitialized: Boolean = false
