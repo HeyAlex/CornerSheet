@@ -16,11 +16,6 @@ class ExampleActivity : Activity() {
             startActivity(intent)
         }
 
-        findViewById<Button>(R.id.photo_picker).setOnClickListener {
-            val intent = Intent(this, PhotoPickerSampleActivity::class.java)
-            startActivity(intent)
-        }
-
         findViewById<Button>(R.id.support_sample).setOnClickListener {
             val intent = Intent(this, SupportSampleActivity::class.java)
             startActivity(intent)

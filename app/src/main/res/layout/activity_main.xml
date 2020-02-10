@@ -27,10 +27,6 @@
                 android:layout_marginBottom="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
-            <androidx.appcompat.widget.AppCompatCheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Change peek height with animation?"/>
 
             <androidx.appcompat.widget.AppCompatSeekBar
                 android:id="@+id/seek_peek_height"
@@ -69,21 +65,21 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            app:backgroundTint="@color/colorAccent"
-            app:behavior_expanded_width="160dp"
-            app:behavior_horizontal_peekHeight="50dp"
-            app:behavior_peekHeight="70dp"
+            app:backgroundTint="@color/colorPrimary"
+            app:behavior_expanded_width="175dp"
+            app:behavior_horizontal_peekHeight="97dp"
+            app:behavior_peekHeight="60dp"
             app:layout_behavior="com.github.heyalex.behavior.CornerSheetBehavior"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CornerDrawer"
             tools:ignore="MissingPrefix">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
+                android:layout_marginLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                app:navigationIcon="@drawable/ic_keyboard_arrow_down_24dp"
-                app:title="Header"
+                app:title="Corner  Sample"
                 app:titleTextColor="@android:color/white" />
 
         </LinearLayout>

@@ -6,13 +6,19 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.FragmentActivity
+import com.github.heyalex.CornerDrawer
 import com.github.heyalex.behavior.CornerSheetHeaderBehavior
 import com.github.heyalex.cornerdrawer.example.R
+import com.github.heyalex.cornerdrawer.example.support.shop.ShopFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 class SupportSampleActivity : FragmentActivity() {
+
+    private lateinit var backPressedCallback: OnBackPressedCallback
+    private lateinit var behavior: CornerSheetHeaderBehavior<CornerDrawer>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +51,28 @@ class SupportSampleActivity : FragmentActivity() {
         }
 
         val drawer = findViewById<ViewGroup>(R.id.corner_drawer)
-        val behavior = BottomSheetBehavior.from(drawer) as CornerSheetHeaderBehavior
+
+        behavior = BottomSheetBehavior.from(drawer) as CornerSheetHeaderBehavior<CornerDrawer>
+
+        backPressedCallback = object :
+            OnBackPressedCallback(behavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
+            override fun handleOnBackPressed() {
+                behavior.setState(BottomSheetBehavior.STATE_COLLAPSED)
+            }
+        }
+
+        onBackPressedDispatcher.addCallback(this, backPressedCallback)
+
+        if (savedInstanceState == null) {
+            supportFragmentManager
+                .beginTransaction()
+                .add(
+                    R.id.fragment_container,
+                    ShopFragment(), "shop"
+                )
+                .commit()
+        }
+
         drawer.findViewById<ViewGroup>(R.id.header_root).setOnClickListener {
             behavior.setState(BottomSheetBehavior.STATE_EXPANDED)
         }
@@ -53,7 +80,7 @@ class SupportSampleActivity : FragmentActivity() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             toolbar.setNavigationOnClickListener {
-                behavior.setState(BottomSheetBehavior.STATE_COLLAPSED)
+                finish()
             }
         }
 
@@ -72,7 +99,6 @@ class SupportSampleActivity : FragmentActivity() {
             }
 
             override fun onStateChanged(bottomSheet: View, newState: Int) {
-
             }
         })
     }
@@ -89,5 +115,11 @@ class SupportSampleActivity : FragmentActivity() {
                 it.decorView.systemUiVisibility = flags
             }
         }
+    }
+
+    override fun onBackPressed() {
+        backPressedCallback.isEnabled = behavior.state == BottomSheetBehavior.STATE_EXPANDED
+        backPressedCallback.handleOnBackPressed()
+        super.onBackPressed()
     }
 }

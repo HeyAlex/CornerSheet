@@ -6,21 +6,16 @@
 
 
     <LinearLayout
+        android:layout_gravity="center"
+        android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <Button
             android:id="@+id/main"
-            android:text="MAIN"
+            android:text="BEHAVIOR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-
-        <Button
-            android:id="@+id/photo_picker"
-            android:text="PHOTO PICKER"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
 
         <Button
             android:id="@+id/support_sample"

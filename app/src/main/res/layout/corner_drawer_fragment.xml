@@ -10,9 +10,9 @@
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="match_parent"-->
         <!--app:content_color="@color/colorPrimary"-->
-        <!--app:content_view="@layout/corner_drawer_content"-->
+        <!--app:content_view="@layout/support_content"-->
         <!--app:header_color="@color/corner_drawer_header_color"-->
-        <!--app:header_view="@layout/corner_drawer_header"-->
+        <!--app:header_view="@layout/support_header"-->
         <!--app:layout_behavior="com.github.heyalex.CornerDrawerBehavior"-->
         <!--app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CornerDrawer" />-->
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
