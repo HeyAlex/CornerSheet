@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import com.github.heyalex.cornerdrawer.example.support.SupportSampleActivity
 
 class ExampleActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +22,7 @@ class ExampleActivity : Activity() {
         }
 
         findViewById<Button>(R.id.support_sample).setOnClickListener {
-            val intent = Intent(this, BehaviorSampleActivity::class.java)
+            val intent = Intent(this, SupportSampleActivity::class.java)
             startActivity(intent)
         }
     }
