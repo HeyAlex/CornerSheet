@@ -34,10 +34,11 @@ import com.google.android.material.shape.ShapeAppearanceModel
  */
 open class CornerMaterialSheetBehavior<V : View> : BottomSheetBehavior<V> {
 
-    private var horizontalPeekWidth: Int = 0
     private var fullViewWidth: Int = 0
     private var expandedWidth: Int = 0
     private var currentWidth: Int = 0
+    private var horizontalPeekWidth: Int = 0
+
     var horizontalState: Int = CornerSheetBehavior.STATE_COLLAPSED
         set(value) {
             if (field == value) return
@@ -103,14 +104,13 @@ open class CornerMaterialSheetBehavior<V : View> : BottomSheetBehavior<V> {
     }
 
     fun setHorizontalPeekHeight(width: Int, animate: Boolean) {
+        horizontalPeekWidth = width
         getView {
-            horizontalPeekWidth = width
 
             if (horizontalState == STATE_COLLAPSED) {
                 if (animate) {
                     startAnimation(it)
                 } else {
-                    expandedWidth = width
                     it.translationX = horizontalPeekWidth.toFloat()
                 }
             }
