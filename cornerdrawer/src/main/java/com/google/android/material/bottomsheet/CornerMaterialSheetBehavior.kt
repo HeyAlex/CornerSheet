@@ -38,9 +38,17 @@ open class CornerMaterialSheetBehavior<V : View> : BottomSheetBehavior<V> {
     private var fullViewWidth: Int = 0
     private var expandedWidth: Int = 0
     private var currentWidth: Int = 0
-    private var horizontalState: Int = CornerSheetBehavior.STATE_COLLAPSED
+    var horizontalState: Int = CornerSheetBehavior.STATE_COLLAPSED
+        set(value) {
+            if (field == value) return
 
-    private var expandingRatio: Float = 0.2f
+            field = value
+            getView {
+                startAnimation(it)
+            }
+        }
+
+    private var expandingRatio: Float = 0f
     private var isViewRefInitialized: Boolean = false
     var sheetBackground: MaterialShapeDrawable? = null
 
@@ -117,18 +125,9 @@ open class CornerMaterialSheetBehavior<V : View> : BottomSheetBehavior<V> {
         expandingRatio = ration
     }
 
-    fun setHorizontalState(@HorizontalState state: Int) {
-        if (horizontalState == state) return
-
-        horizontalState = state
-        getView {
-            startAnimation(it)
-        }
-    }
-
-    fun getView(unit: ((V) -> Unit)) {
-        if (viewRef != null && viewRef!!.get() != null) {
-            unit.invoke(viewRef!!.get()!!)
+    private fun getView(unit: ((V) -> Unit)) {
+        viewRef?.get()?.let {
+            unit.invoke(it)
         }
     }
 
