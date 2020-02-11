@@ -55,9 +55,9 @@ class SupportSampleActivity : FragmentActivity() {
         behavior = BottomSheetBehavior.from(drawer) as CornerSheetHeaderBehavior<CornerDrawer>
 
         backPressedCallback = object :
-            OnBackPressedCallback(behavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
+            OnBackPressedCallback(behavior.state == BottomSheetBehavior.STATE_COLLAPSED) {
             override fun handleOnBackPressed() {
-                behavior.setState(BottomSheetBehavior.STATE_COLLAPSED)
+                behavior.state = BottomSheetBehavior.STATE_COLLAPSED
             }
         }
 

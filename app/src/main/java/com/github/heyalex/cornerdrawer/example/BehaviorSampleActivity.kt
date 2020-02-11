@@ -20,22 +20,22 @@ class BehaviorSampleActivity : AppCompatActivity() {
         val behavior = BottomSheetBehavior.from(cornerDrawer) as CornerMaterialSheetBehavior
 
         expand.setOnClickListener {
-            behavior.setHorizontalState(CornerSheetBehavior.STATE_EXPANDED)
+            behavior.horizontalState = CornerSheetBehavior.STATE_EXPANDED
         }
 
         collapsed.setOnClickListener {
-            behavior.setHorizontalState(CornerSheetBehavior.STATE_COLLAPSED)
+            behavior.horizontalState = CornerSheetBehavior.STATE_COLLAPSED
         }
 
         hidden.setOnClickListener {
-            behavior.setHorizontalState(CornerSheetBehavior.STATE_HIDDEN)
+            behavior.horizontalState = CornerSheetBehavior.STATE_HIDDEN
         }
 
         val seekbar = findViewById<AppCompatSeekBar>(R.id.seek_peek_height)
         seekbar.max = 800
         seekbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                behavior.setHorizontalPeekHeight(progress, true)
+                behavior.setHorizontalPeekHeight(progress, false)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {

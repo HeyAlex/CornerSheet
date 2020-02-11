@@ -18,7 +18,7 @@ class DetailShopFragment : Fragment() {
 
     override fun onDetach() {
         super.onDetach()
-        behavior.setHorizontalState(CornerSheetBehavior.STATE_COLLAPSED)
+        behavior.horizontalState = CornerSheetBehavior.STATE_COLLAPSED
     }
 
     override fun onCreateView(
@@ -28,7 +28,7 @@ class DetailShopFragment : Fragment() {
         behavior =
             BottomSheetBehavior.from(activity!!.findViewById<CornerDrawer>(R.id.corner_drawer))
                 as CornerSheetHeaderBehavior
-        behavior.setHorizontalState(CornerSheetBehavior.STATE_EXPANDED)
+        behavior.horizontalState = CornerSheetBehavior.STATE_EXPANDED
         return inflater.inflate(R.layout.detail_shop_item_fragment, container, false)
     }
 
