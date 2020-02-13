@@ -1,4 +1,4 @@
-package com.github.heyalex.behavior
+package com.github.heyalex.cornersheet.behavior
 
 import android.content.Context
 import android.content.res.ColorStateList
@@ -7,8 +7,8 @@ import android.view.View
 import android.widget.FrameLayout
 import androidx.annotation.ColorInt
 import com.github.heyalex.CornerDrawer
-import com.github.heyalex.interpolate
-import com.github.heyalex.interpolateArgb
+import com.github.heyalex.cornersheet.interpolate
+import com.github.heyalex.cornersheet.interpolateArgb
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 class CornerSheetHeaderBehavior<V : CornerDrawer> : CornerSheetBehavior<V> {
@@ -68,7 +68,13 @@ class CornerSheetHeaderBehavior<V : CornerDrawer> : CornerSheetBehavior<V> {
     override fun internalOnSlide(slideOffset: Float) {
         super.internalOnSlide(slideOffset)
         sheetBackground?.interpolation =
-            interpolate(1f, 0f, 0f, 0.15f, slideOffset)
+            interpolate(
+                1f,
+                0f,
+                0f,
+                0.15f,
+                slideOffset
+            )
         sheetBackground?.fillColor = ColorStateList.valueOf(
             interpolateArgb(
                 headerColor,
@@ -79,11 +85,29 @@ class CornerSheetHeaderBehavior<V : CornerDrawer> : CornerSheetBehavior<V> {
             )
         )
 
-        header?.alpha = interpolate(1f, 0f, 0f, 0.15f, slideOffset)
+        header?.alpha = interpolate(
+            1f,
+            0f,
+            0f,
+            0.15f,
+            slideOffset
+        )
         header?.visibility = if (slideOffset < 0.5) View.VISIBLE else View.GONE
         content?.visibility = if (slideOffset > 0.2) View.VISIBLE else View.GONE
-        container?.alpha = interpolate(0f, 1f, 0.2f, 0.8f, slideOffset)
-        container?.translationY = interpolate(0f, topInset.toFloat(), 0.55f, 1f, slideOffset)
+        container?.alpha = interpolate(
+            0f,
+            1f,
+            0.2f,
+            0.8f,
+            slideOffset
+        )
+        container?.translationY = interpolate(
+            0f,
+            topInset.toFloat(),
+            0.55f,
+            1f,
+            slideOffset
+        )
     }
 
     fun onPeekHeightChanged(newPeekHeight: Int) {

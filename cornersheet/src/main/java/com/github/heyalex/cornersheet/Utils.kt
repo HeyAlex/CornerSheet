@@ -1,4 +1,4 @@
-package com.github.heyalex
+package com.github.heyalex.cornersheet
 
 import androidx.annotation.ColorInt
 import androidx.annotation.FloatRange

@@ -1,4 +1,4 @@
-package com.github.heyalex.behavior
+package com.github.heyalex.cornersheet.behavior
 
 import android.content.Context
 import android.util.AttributeSet

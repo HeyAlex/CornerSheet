@@ -17,9 +17,9 @@ import androidx.annotation.StyleableRes
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.ViewCompat
-import com.github.heyalex.R
-import com.github.heyalex.behavior.CornerSheetBehavior
-import com.github.heyalex.interpolate
+import com.github.heyalex.cornersheet.R
+import com.github.heyalex.cornersheet.behavior.CornerSheetBehavior
+import com.github.heyalex.cornersheet.interpolate
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
 
@@ -150,9 +150,21 @@ open class CornerMaterialSheetBehavior<V : View> : BottomSheetBehavior<V> {
                 override fun onSlide(bottomSheet: View, slideOffset: Float) {
                     val translationValue = getMaxWidth()
                     child.translationX =
-                        interpolate(translationValue.toFloat(), 0f, 0f, expandingRatio, slideOffset)
+                        interpolate(
+                            translationValue.toFloat(),
+                            0f,
+                            0f,
+                            expandingRatio,
+                            slideOffset
+                        )
                     sheetBackground?.interpolation =
-                        interpolate(1f, 0f, 0f, expandingRatio, slideOffset)
+                        interpolate(
+                            1f,
+                            0f,
+                            0f,
+                            expandingRatio,
+                            slideOffset
+                        )
                     internalOnSlide(slideOffset)
                 }
 
@@ -186,7 +198,13 @@ open class CornerMaterialSheetBehavior<V : View> : BottomSheetBehavior<V> {
 
             addUpdateListener { animation ->
                 val value = animation.animatedValue as Float
-                val lerp = interpolate(start.toFloat(), end.toFloat(), 0f, 1f, value)
+                val lerp = interpolate(
+                    start.toFloat(),
+                    end.toFloat(),
+                    0f,
+                    1f,
+                    value
+                )
                 view.translationX = lerp
 
             }
