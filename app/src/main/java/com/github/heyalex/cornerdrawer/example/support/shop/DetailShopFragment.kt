@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.github.heyalex.CornerDrawer
-import com.github.heyalex.behavior.CornerSheetBehavior
-import com.github.heyalex.behavior.CornerSheetHeaderBehavior
+import com.github.heyalex.cornersheet.behavior.CornerSheetBehavior
+import com.github.heyalex.cornersheet.behavior.CornerSheetHeaderBehavior
 import com.github.heyalex.cornerdrawer.example.R
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.detail_shop_item_fragment.view.*

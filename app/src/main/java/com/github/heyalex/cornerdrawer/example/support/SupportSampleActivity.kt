@@ -10,7 +10,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.FragmentActivity
 import com.github.heyalex.CornerDrawer
-import com.github.heyalex.behavior.CornerSheetHeaderBehavior
+import com.github.heyalex.cornersheet.behavior.CornerSheetHeaderBehavior
 import com.github.heyalex.cornerdrawer.example.R
 import com.github.heyalex.cornerdrawer.example.support.shop.ShopFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior

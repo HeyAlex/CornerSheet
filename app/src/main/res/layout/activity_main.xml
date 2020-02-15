@@ -33,14 +33,40 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <TextView
+            <LinearLayout
                 android:layout_marginTop="30dp"
-                android:text="CornerSheetBehavior states: "
-                android:layout_marginBottom="10dp"
+                android:orientation="horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content">
 
-            <Button
+                <TextView
+                    android:text="Current CornerSheetBehavior state: "
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:text="COLLAPSED"
+                    android:id="@+id/behavior_state"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+        <LinearLayout
+
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        <Button
                 android:id="@+id/expand"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -57,10 +83,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="HIDE" />
+        </LinearLayout>
 
         </LinearLayout>
 
-        <LinearLayout
+        <FrameLayout
             android:id="@+id/corner_behavior_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -68,8 +95,10 @@
             app:backgroundTint="@color/colorPrimary"
             app:behavior_expanded_width="175dp"
             app:behavior_horizontal_peekHeight="97dp"
+            tools:behavior_horizontal_peekHeight="350dp"
             app:behavior_peekHeight="60dp"
-            app:layout_behavior="com.github.heyalex.behavior.CornerSheetBehavior"
+            tools:behavior_peekHeight="150dp"
+            app:layout_behavior="com.github.heyalex.cornersheet.behavior.CornerSheetBehavior"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CornerDrawer"
             tools:ignore="MissingPrefix">
 
@@ -82,7 +111,16 @@
                 app:title="Corner  Sample"
                 app:titleTextColor="@android:color/white" />
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/expandedValue"
+                android:textSize="20sp"
+                android:textColor="@android:color/white"
+                android:text="SLIDE OFFSET"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </FrameLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

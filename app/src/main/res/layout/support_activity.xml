@@ -25,7 +25,7 @@
             app:content_view="@layout/support_content"
             app:header_color="@color/corner_drawer_header_color"
             app:header_view="@layout/support_header"
-            app:layout_behavior="com.github.heyalex.behavior.CornerSheetHeaderBehavior"
+            app:layout_behavior="com.github.heyalex.cornersheet.behavior.CornerSheetHeaderBehavior"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CornerDrawer" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
