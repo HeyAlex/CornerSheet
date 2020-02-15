@@ -178,7 +178,10 @@ open class CornerMaterialSheetBehavior<V : View> : BottomSheetBehavior<V> {
         return onLayoutChildResult
     }
 
+    /** Callback for listen slideOffset internally **/
     open fun internalOnSlide(slideOffset: Float) {}
+
+    /** Callback for listen for first layout child **/
     open fun initLayoutChild(view: V) {}
 
     override fun onTouchEvent(parent: CoordinatorLayout, child: V, event: MotionEvent): Boolean {
