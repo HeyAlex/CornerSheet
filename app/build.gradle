@@ -34,7 +34,10 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation project(':cornerdrawer')
+    implementation project(':drawer')
+
+//    implementation 'com.github.HeyAlex.CornerSheet:core:master-SNAPSHOT'
+
     implementation "androidx.fragment:fragment:1.2.0"
     implementation 'com.google.android.material:material:1.1.0'
     implementation 'androidx.appcompat:appcompat:1.1.0'
