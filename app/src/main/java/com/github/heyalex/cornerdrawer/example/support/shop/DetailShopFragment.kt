@@ -1,16 +1,21 @@
 package com.github.heyalex.cornerdrawer.example.support.shop
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import com.github.heyalex.CornerDrawer
 import com.github.heyalex.cornersheet.behavior.CornerSheetBehavior
 import com.github.heyalex.cornersheet.behavior.CornerSheetHeaderBehavior
 import com.github.heyalex.cornerdrawer.example.R
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import kotlinx.android.synthetic.main.detail_shop_item_fragment.*
+import kotlinx.android.synthetic.main.detail_shop_item_fragment.toolbar
 import kotlinx.android.synthetic.main.detail_shop_item_fragment.view.*
+import kotlinx.android.synthetic.main.shop_fragment.*
 
 class DetailShopFragment : Fragment() {
 
@@ -38,6 +43,15 @@ class DetailShopFragment : Fragment() {
         view.detail_shop_image.load(item.url)
         view.name.text = item.name
         view.desc.text = item.description
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH) {
+            toolbar.setOnApplyWindowInsetsListener { v, insets ->
+                toolbar.updatePadding(top = insets.systemWindowInsetTop)
+                insets
+            }
+        }
+        toolbar.setNavigationOnClickListener {
+            requireActivity().onBackPressed()
+        }
     }
 
     companion object {

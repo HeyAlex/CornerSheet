@@ -13,13 +13,13 @@ val lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiu
 val items = listOf(
     ShopItem(
         id = 0,
-        name = "Ceramic Mug",
-        url = "https://github.com/HeyAlex/BottomDrawer/blob/master/raw/dinner_set.jpg?raw=true"
+        name = "Cutting boards",
+        url = "https://github.com/HeyAlex/CornerSheet/blob/master/raw/antique_cutting_boards.jpg?raw=true"
     ),
     ShopItem(
         id = 1,
-        name = "Cookware set",
-        url = "https://github.com/HeyAlex/BottomDrawer/blob/master/raw/ceramic%20mug.jpg?raw=true"
+        name = "Ceramic mugs",
+        url = "https://github.com/HeyAlex/CornerSheet/blob/master/raw/ceramic%20mug.jpg?raw=true"
     ),
     ShopItem(
         id = 2,
@@ -28,18 +28,18 @@ val items = listOf(
     ),
     ShopItem(
         id = 3,
-        name = "Water Jug",
-        url = "https://www.save-on-crafts.com/media/catalog/product/cache/3/image/650x/4ab5f96ba821f6793c9aaccc3424405a/l/i/linen-squares-20-x-20-fringe-edge-12-pieces-3.jpg"
+        name = "Ceramic jugs set",
+        url = "https://github.com/HeyAlex/CornerSheet/blob/master/raw/ceramic_jugs.jpg?raw=true"
     ),
     ShopItem(
         id = 4,
-        name = "Ceramic Mug",
-        url = "https://github.com/HeyAlex/BottomDrawer/blob/master/raw/dinner_set.jpg?raw=true"
+        name = "Water jugs set",
+        url = "https://github.com/HeyAlex/CornerSheet/blob/master/raw/water_jugs_2.jpg?raw=true"
     ),
     ShopItem(
         id = 5,
-        name = "Ceramic Mug",
-        url = "https://www.save-on-crafts.com/media/catalog/product/cache/3/image/650x/4ab5f96ba821f6793c9aaccc3424405a/l/i/linen-squares-20-x-20-fringe-edge-12-pieces-3.jpg"
+        name = "Tableware",
+        url = "https://github.com/HeyAlex/CornerSheet/blob/master/raw/tableware.jpg?raw=true"
     ),
     ShopItem(
         id = 6,
@@ -48,58 +48,43 @@ val items = listOf(
     ),
     ShopItem(
         id = 7,
-        name = "Ceramic Mug",
-        url = "https://github.com/HeyAlex/BottomDrawer/blob/master/raw/linen%20napkins.jpeg?raw=true"
+        name = "Square dinner set",
+        url = "https://github.com/HeyAlex/CornerSheet/blob/master/raw/square_dinner_set.jpeg?raw=true"
     ),
     ShopItem(
         id = 8,
-        name = "Ceramic Mug",
-        url = "https://github.com/HeyAlex/BottomDrawer/blob/master/raw/linen%20napkins.jpeg?raw=true"
+        name = "Wooden spoons",
+        url = "https://github.com/HeyAlex/CornerSheet/blob/master/raw/spoon_set.jpg?raw=true"
     ),
     ShopItem(
         id = 9,
-        name = "Ceramic Mug",
-        url = "https://github.com/HeyAlex/BottomDrawer/blob/master/raw/dinner_set.jpg?raw=true"
+        name = "Linen napkins",
+        url = "https://github.com/HeyAlex/CornerSheet/blob/master/raw/linen_napkins_2.jpg?raw=true"
     ),
     ShopItem(
         id = 10,
-        name = "Cookware set",
-        url = "https://github.com/HeyAlex/BottomDrawer/blob/master/raw/ceramic%20mug.jpg?raw=true"
+        name = "Dinnerware set 1",
+        url = "https://github.com/HeyAlex/CornerSheet/blob/master/raw/dinnerware_set_3.jpg?raw=true"
     ),
     ShopItem(
         id = 11,
-        name = "Dinner Set",
-        url = "https://github.com/HeyAlex/BottomDrawer/blob/master/raw/dinner_set.jpg?raw=true"
+        name = "Dinnerware set 2",
+        url = "https://github.com/HeyAlex/CornerSheet/blob/master/raw/dinner_set.jpg?raw=true"
     ),
     ShopItem(
         id = 12,
-        name = "Water Jug",
-        url = "https://www.save-on-crafts.com/media/catalog/product/cache/3/image/650x/4ab5f96ba821f6793c9aaccc3424405a/l/i/linen-squares-20-x-20-fringe-edge-12-pieces-3.jpg"
+        name = "Dinnerware set 3",
+        url = "https://github.com/HeyAlex/CornerSheet/blob/master/raw/dinnerware_set_2.jpg?raw=true"
     ),
     ShopItem(
         id = 13,
-        name = "Ceramic Mug",
-        url = "https://github.com/HeyAlex/BottomDrawer/blob/master/raw/dinner_set.jpg?raw=true"
+        name = "Plate set",
+        url = "https://github.com/HeyAlex/CornerSheet/blob/master/raw/dinner_set_2.jpg?raw=true"
     ),
     ShopItem(
         id = 14,
-        name = "Ceramic Mug",
-        url = "https://www.save-on-crafts.com/media/catalog/product/cache/3/image/650x/4ab5f96ba821f6793c9aaccc3424405a/l/i/linen-squares-20-x-20-fringe-edge-12-pieces-3.jpg"
-    ),
-    ShopItem(
-        id = 15,
-        name = "Ceramic Mug",
-        url = "https://github.com/HeyAlex/BottomDrawer/blob/master/raw/ceramic%20mug.jpg?raw=true"
-    ),
-    ShopItem(
-        id = 16,
-        name = "Ceramic Mug",
-        url = "https://github.com/HeyAlex/BottomDrawer/blob/master/raw/linen%20napkins.jpeg?raw=true"
-    ),
-    ShopItem(
-        id = 17,
-        name = "Ceramic Mug",
-        url = "https://github.com/HeyAlex/BottomDrawer/blob/master/raw/linen%20napkins.jpeg?raw=true"
+        name = "Ceramic Mugs",
+        url = "https://github.com/HeyAlex/CornerSheet/blob/master/raw/ceramic_mugs_2.jpg?raw=true"
     )
 )
 
