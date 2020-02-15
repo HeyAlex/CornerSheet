@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Build
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.WindowInsets
 import android.widget.FrameLayout
@@ -78,6 +79,13 @@ open class CornerDrawer : FrameLayout {
 
     override fun addView(child: View?) {
         container.addView(child)
+    }
+
+    /**
+     * Handle all touches, to not let intercept touches behind
+     */
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        return true
     }
 
     override fun onApplyWindowInsets(insets: WindowInsets): WindowInsets {

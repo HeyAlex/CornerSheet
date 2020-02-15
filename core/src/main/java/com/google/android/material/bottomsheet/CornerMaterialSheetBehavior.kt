@@ -44,8 +44,10 @@ open class CornerMaterialSheetBehavior<V : View> : BottomSheetBehavior<V> {
             if (field == value) return
 
             field = value
-            getView {
-                startAnimation(it)
+            if (state != STATE_EXPANDED) {
+                getView {
+                    startAnimation(it)
+                }
             }
         }
 
@@ -185,7 +187,7 @@ open class CornerMaterialSheetBehavior<V : View> : BottomSheetBehavior<V> {
     open fun initLayoutChild(view: V) {}
 
     override fun onTouchEvent(parent: CoordinatorLayout, child: V, event: MotionEvent): Boolean {
-        return if (event.x < child.translationX && state != STATE_DRAGGING) {
+        return if (state != STATE_EXPANDED && event.x < child.translationX && state != STATE_DRAGGING) {
             false
         } else {
             super.onTouchEvent(parent, child, event)

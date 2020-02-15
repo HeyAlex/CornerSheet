@@ -14,6 +14,7 @@ import com.github.heyalex.cornersheet.behavior.CornerSheetHeaderBehavior
 import com.github.heyalex.cornerdrawer.example.R
 import com.github.heyalex.cornerdrawer.example.support.shop.ShopFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import kotlinx.android.synthetic.main.support_content.*
 
 class SupportSampleActivity : FragmentActivity() {
 
@@ -77,10 +78,9 @@ class SupportSampleActivity : FragmentActivity() {
             behavior.setState(BottomSheetBehavior.STATE_EXPANDED)
         }
 
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            toolbar.setNavigationOnClickListener {
-                finish()
+            support_toolbar.setNavigationOnClickListener {
+                behavior.state = BottomSheetBehavior.STATE_COLLAPSED
             }
         }
 
