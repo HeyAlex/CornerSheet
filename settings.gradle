@@ -1,1 +1,1 @@
-include ':app', ':cornerdrawer', ':cornersheet'
+include ':app', ':drawer', ':core'
