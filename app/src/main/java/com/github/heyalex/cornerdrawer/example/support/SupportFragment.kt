@@ -11,7 +11,6 @@ import com.github.heyalex.CornerDrawer
 import com.github.heyalex.cornerdrawer.example.R
 import com.github.heyalex.cornersheet.behavior.CornerSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.CornerMaterialSheetBehavior
 import kotlinx.android.synthetic.main.support_content.view.*
 import kotlinx.android.synthetic.main.support_header.view.*
 

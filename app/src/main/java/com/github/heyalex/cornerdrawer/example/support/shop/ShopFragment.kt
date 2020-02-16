@@ -11,9 +11,9 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import com.github.heyalex.CornerDrawer
-import com.github.heyalex.cornersheet.behavior.CornerSheetHeaderBehavior
 import com.github.heyalex.cornerdrawer.example.R
 import com.github.heyalex.cornerdrawer.example.support.ShopActivity
+import com.github.heyalex.cornersheet.behavior.CornerSheetHeaderBehavior
 import kotlinx.android.synthetic.main.shop_fragment.*
 
 class ShopFragment : Fragment() {
@@ -30,7 +30,8 @@ class ShopFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        behavior = (activity as ShopActivity).supportFragment.behavior as CornerSheetHeaderBehavior<CornerDrawer>
+        behavior =
+            (activity as ShopActivity).supportFragment.behavior as CornerSheetHeaderBehavior<CornerDrawer>
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH) {
             toolbar.setOnApplyWindowInsetsListener { v, insets ->

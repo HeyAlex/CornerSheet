@@ -30,25 +30,25 @@
             app:navigationIcon="?attr/homeAsUpIndicator" />
 
         <TextView
-            android:paddingLeft="10dp"
-            android:layout_marginTop="10dp"
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/detail_shop_image"
             android:layout_alignParentLeft="true"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="10dp"
             android:text="NAME"
             android:textSize="28sp"
             android:textStyle="bold" />
 
         <TextView
-            android:layout_marginTop="10dp"
             android:id="@+id/price"
-            android:paddingRight="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/detail_shop_image"
             android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:paddingRight="10dp"
             android:text="$ 66"
             android:textSize="22sp"
             android:textStyle="bold" />

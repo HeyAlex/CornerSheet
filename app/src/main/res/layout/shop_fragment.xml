@@ -15,11 +15,11 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
-            app:navigationIcon="?attr/homeAsUpIndicator"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#FFFFFF"
             app:layout_scrollFlags="scroll|enterAlways|snap"
+            app:navigationIcon="?attr/homeAsUpIndicator"
             app:title="Home"
             app:titleTextColor="#5A5A5A" />
 

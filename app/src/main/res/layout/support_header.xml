@@ -13,7 +13,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:paddingLeft="6dp"
-        android:src="@drawable/ic_message_24dp"/>
+        android:src="@drawable/ic_message_24dp" />
 
     <TextView
         android:id="@+id/header_text"

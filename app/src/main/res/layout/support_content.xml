@@ -66,15 +66,15 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/sup_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:gravity="right"
+                android:layout_below="@+id/sup_message"
+                android:layout_alignParentRight="true"
                 android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_toEndOf="@+id/ic_sup"
                 android:layout_toRightOf="@+id/ic_sup"
+                android:gravity="right"
                 android:orientation="vertical">
 
                 <TextView
