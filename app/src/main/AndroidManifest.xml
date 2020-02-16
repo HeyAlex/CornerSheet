@@ -20,7 +20,7 @@
         </activity>
 
         <activity android:name=".BehaviorSampleActivity" />
-        <activity android:name=".support.SupportSampleActivity" />
+        <activity android:name=".support.ShopActivity" />
     </application>
 
 </manifest>

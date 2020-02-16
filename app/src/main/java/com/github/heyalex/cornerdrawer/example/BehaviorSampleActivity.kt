@@ -9,6 +9,7 @@ import com.github.heyalex.cornersheet.behavior.CornerSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.CornerMaterialSheetBehavior
 import kotlinx.android.synthetic.main.activity_main.*
+import java.math.RoundingMode
 
 class BehaviorSampleActivity : AppCompatActivity() {
 
@@ -21,7 +22,10 @@ class BehaviorSampleActivity : AppCompatActivity() {
 
         behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                expandedValue.text = "Expanded value: $slideOffset"
+                expandedValue.text = "Expanded value: ${slideOffset.toBigDecimal().setScale(
+                    2,
+                    RoundingMode.UP
+                ).toDouble()}"
             }
 
             override fun onStateChanged(bottomSheet: View, newState: Int) {

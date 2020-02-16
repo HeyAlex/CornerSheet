@@ -43,8 +43,8 @@ val items = listOf(
     ),
     ShopItem(
         id = 6,
-        name = "Ceramic Mug",
-        url = "https://github.com/HeyAlex/BottomDrawer/blob/master/raw/ceramic%20mug.jpg?raw=true"
+        name = "Dinnerware set 3",
+        url = "https://github.com/HeyAlex/CornerSheet/blob/master/raw/dinnerware_set_2.jpg?raw=true"
     ),
     ShopItem(
         id = 7,
@@ -73,8 +73,8 @@ val items = listOf(
     ),
     ShopItem(
         id = 12,
-        name = "Dinnerware set 3",
-        url = "https://github.com/HeyAlex/CornerSheet/blob/master/raw/dinnerware_set_2.jpg?raw=true"
+        name = "Ceramic Mug",
+        url = "https://github.com/HeyAlex/BottomDrawer/blob/master/raw/ceramic%20mug.jpg?raw=true"
     ),
     ShopItem(
         id = 13,

@@ -99,7 +99,7 @@
             app:behavior_peekHeight="60dp"
             tools:behavior_peekHeight="150dp"
             app:layout_behavior="com.github.heyalex.cornersheet.behavior.CornerSheetBehavior"
-            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CornerDrawer"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CornerShape"
             tools:ignore="MissingPrefix">
 
             <androidx.appcompat.widget.Toolbar

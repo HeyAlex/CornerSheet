@@ -82,7 +82,7 @@ open class CornerDrawer : FrameLayout {
     }
 
     /**
-     * Handle all touches, to not let intercept touches behind
+     * Handle all touches, to not let intercept touches views behind
      */
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         return true

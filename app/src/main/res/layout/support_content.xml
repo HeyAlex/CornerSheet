@@ -8,11 +8,12 @@
     tools:showIn="@layout/activity_main">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/support_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         app:navigationIcon="@drawable/ic_keyboard_arrow_down_24dp"
+
         app:title="Support"
         app:titleTextColor="@android:color/white" />
 

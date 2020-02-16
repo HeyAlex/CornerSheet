@@ -8,14 +8,12 @@ import android.view.ViewGroup
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import com.github.heyalex.CornerDrawer
+import com.github.heyalex.cornerdrawer.example.R
+import com.github.heyalex.cornerdrawer.example.support.ShopActivity
 import com.github.heyalex.cornersheet.behavior.CornerSheetBehavior
 import com.github.heyalex.cornersheet.behavior.CornerSheetHeaderBehavior
-import com.github.heyalex.cornerdrawer.example.R
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.detail_shop_item_fragment.*
-import kotlinx.android.synthetic.main.detail_shop_item_fragment.toolbar
 import kotlinx.android.synthetic.main.detail_shop_item_fragment.view.*
-import kotlinx.android.synthetic.main.shop_fragment.*
 
 class DetailShopFragment : Fragment() {
 
@@ -31,8 +29,8 @@ class DetailShopFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         behavior =
-            BottomSheetBehavior.from(activity!!.findViewById<CornerDrawer>(R.id.corner_drawer))
-                as CornerSheetHeaderBehavior
+            (activity as ShopActivity).supportFragment.behavior as CornerSheetHeaderBehavior<CornerDrawer>
+
         behavior.horizontalState = CornerSheetBehavior.STATE_EXPANDED
         return inflater.inflate(R.layout.detail_shop_item_fragment, container, false)
     }
