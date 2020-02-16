@@ -14,6 +14,7 @@
         app:content_view="@layout/support_content"
         app:header_color="@color/corner_drawer_header_color"
         app:header_view="@layout/support_header"
+        android:clickable="true"
         app:layout_behavior="com.github.heyalex.cornersheet.behavior.CornerSheetHeaderBehavior"
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CornerShape" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

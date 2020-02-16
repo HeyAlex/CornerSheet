@@ -81,13 +81,6 @@ open class CornerDrawer : FrameLayout {
         container.addView(child)
     }
 
-    /**
-     * Handle all touches, to not let intercept touches views behind
-     */
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
-        return true
-    }
-
     override fun onApplyWindowInsets(insets: WindowInsets): WindowInsets {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH) {
             bottomInset = insets.systemWindowInsetBottom

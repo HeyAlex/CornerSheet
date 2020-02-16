@@ -87,8 +87,4 @@ class SupportFragment : Fragment() {
         backPressedCallback.handleOnBackPressed()
         return true
     }
-
-    fun setHorizontalState(@CornerMaterialSheetBehavior.HorizontalState state: Int) {
-        behavior.horizontalState = state
-    }
 }
