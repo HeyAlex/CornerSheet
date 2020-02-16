@@ -109,7 +109,7 @@ open class CornerMaterialSheetBehavior<V : View> : BottomSheetBehavior<V> {
         horizontalPeekWidth = width
         getView {
 
-            if (state == STATE_COLLAPSED) {
+            if (state == STATE_COLLAPSED && horizontalState == CornerSheetBehavior.STATE_COLLAPSED) {
                 if (animate) {
                     startAnimation(it)
                 } else {
