@@ -98,8 +98,7 @@
             app:behavior_peekHeight="60dp"
             app:layout_behavior="com.github.heyalex.cornersheet.behavior.CornerSheetBehavior"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CornerShape"
-            tools:behavior_horizontal_peekHeight="350dp"
-            tools:behavior_peekHeight="150dp"
+            tools:behavior_horizontal_peekHeight="97dp"
             tools:ignore="MissingPrefix">
 
             <androidx.appcompat.widget.Toolbar
@@ -123,10 +122,4 @@
         </FrameLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-    <!--<fragment-->
-    <!--android:id="@+id/support_sheet"-->
-    <!--android:name="com.github.heyalex.cornerdrawer.example.CornerDrawerFragment"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent" />-->
 </FrameLayout>

@@ -5,5 +5,5 @@
     <color name="colorAccent">#D81B60</color>
 
     <color name="corner_drawer_header_color">#000</color>
-    <color name="corner_drawer_content_color">@android:color/transparent</color>
+    <color name="corner_drawer_content_color">#000</color>
 </resources>

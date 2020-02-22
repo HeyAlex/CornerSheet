@@ -9,7 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clickable="true"
-        app:behavior_expanded_width="130dp"
         app:behavior_horizontal_peekHeight="58dp"
         app:content_color="@color/corner_drawer_header_color"
         app:content_view="@layout/support_content"
