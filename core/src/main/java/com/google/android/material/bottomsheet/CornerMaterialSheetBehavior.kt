@@ -35,7 +35,6 @@ import com.google.android.material.shape.ShapeAppearanceModel
 open class CornerMaterialSheetBehavior<V : View> : BottomSheetBehavior<V> {
 
     private var fullViewWidth: Int = 0
-    private var expandedWidth: Int = 0
     private var currentWidth: Int = 0
     private var horizontalPeekWidth: Int = 0
 
@@ -51,9 +50,13 @@ open class CornerMaterialSheetBehavior<V : View> : BottomSheetBehavior<V> {
             }
         }
 
-    private var expandingRatio: Float = 0f
+    @FloatRange(from = 0.0, to = 1.0)
+    var expandingRatio: Float = 0f
+
+    var expandedWidth: Int = 0
+
     private var isViewRefInitialized: Boolean = false
-    var sheetBackground: MaterialShapeDrawable? = null
+    protected var sheetBackground: MaterialShapeDrawable? = null
 
     constructor() : super()
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
@@ -117,14 +120,6 @@ open class CornerMaterialSheetBehavior<V : View> : BottomSheetBehavior<V> {
                 }
             }
         }
-    }
-
-    fun setExpandedState(width: Int) {
-        expandedWidth = width
-    }
-
-    fun setExpandingRation(@FloatRange(from = 0.0, to = 1.0) ration: Float) {
-        expandingRatio = ration
     }
 
     private fun getView(unit: ((V) -> Unit)) {
@@ -231,7 +226,6 @@ open class CornerMaterialSheetBehavior<V : View> : BottomSheetBehavior<V> {
         this.horizontalPeekWidth = ss.horizontalPeekHeight
         this.expandedWidth = ss.expandedWidth
     }
-
 
     protected class CornerSavedState : SavedState {
 

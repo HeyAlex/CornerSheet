@@ -5,7 +5,6 @@
         <attr name="behavior_horizontal_peekHeight" format="dimension" />
         <attr name="behavior_expanded_width" format="dimension" />
         <attr name="behavior_horizontalExpandingRatio" format="float" />
-        <attr name="behavior_hideable" format="boolean" />
     </declare-styleable>
 
 </resources>
