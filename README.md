@@ -60,8 +60,8 @@ There are 3 state of CornerSheetBehavior:
 | State                                 | Description                                                      |
 | ------------------------              | ---------------------------------------------------------------- |
 | `CornerSheetBehavior.STATE_EXPANDED`  | expanded horizontally on `behavior_expanded_width` value         |
-| `CornerSheetBehavior.STATE_EXPANDED`  | expanded horizontally on `behavior_horizontal_peekHeight` value  |
-| `CornerSheetBehavior.STATE_EXPANDED`  | hide horizontally                                                |
+| `CornerSheetBehavior.STATE_COLLAPSED` | expanded horizontally on `behavior_horizontal_peekHeight` value  |
+| `CornerSheetBehavior.STATE_HIDDEN`    | hide horizontally                                                |
 
 ![](/raw/behavior_states_sample.png)
 
