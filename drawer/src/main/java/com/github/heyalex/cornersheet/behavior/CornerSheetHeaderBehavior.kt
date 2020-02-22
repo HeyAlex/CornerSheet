@@ -40,7 +40,13 @@ class CornerSheetHeaderBehavior<V : CornerDrawer> : CornerSheetBehavior<V> {
         bottomInset = view.bottomInset
 
         val height = header?.height ?: 0
-        peekHeight = height + bottomInset
+        val width = header?.width ?: 0
+        if (peekHeight == PEEK_HEIGHT_AUTO) {
+            peekHeight = height + bottomInset
+        }
+        if (expandedWidth == 0) {
+            expandedWidth = width
+        }
         onPeekHeightChanged(peekHeight)
         sheetBackground?.tintList = null
         onStartState()
