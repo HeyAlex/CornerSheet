@@ -4,33 +4,33 @@
 
 ## Usage
 
-The usage is similar to BottomSheetBehavior (ref)
+The usage is similar to [BottomSheetBehavior](https://developer.android.com/reference/com/google/android/material/bottomsheet/BottomSheetBehavior)
 
-A simple view with behavior will be look like:
+A simple view with behavior in xml will be look like:
 
 ```xml
- <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/coordinator"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <FrameLayout
+  <FrameLayout
             android:id="@+id/corner_behavior_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:backgroundTint="@color/colorPrimary"
-            app:behavior_expanded_width="200dp"
-            app:behavior_horizontal_peekHeight="100dp"
+            app:behavior_expanded_width="175dp"
+            app:behavior_horizontal_peekHeight="94dp"
             app:behavior_peekHeight="60dp"
             app:layout_behavior="com.github.heyalex.cornersheet.behavior.CornerSheetBehavior"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CornerShape"
             tools:ignore="MissingPrefix">
 
- </androidx.coordinatorlayout.widget.CoordinatorLayout>
-```
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                app:title="Corner Sample"
+                app:titleTextColor="@android:color/white" />
 
-And will look like:
-![](/raw/corner_behavior_sample.gif)
+        </FrameLayout>
+
+```
 
 You can use the following attributes on view with CornerSheetBehavior.
 
@@ -40,14 +40,6 @@ You can use the following attributes on view with CornerSheetBehavior.
 | `behavior_expanded_width`                  | dimension             | 0dp     |
 | `behavior_horizontal_peekHeight`           | dimension             | 0dp     |
 
-behavior_horizontalExpandingRatio -> vertical slide offset to which it should fully horizontally expanded
-
-There are 3 state of CornerSheetBehavior:
-
-STATE_EXPANDED -> expanded horizontally on behavior_expanded_width value
-STATE_COLLAPSED -> expanded horizontally on behavior_horizontal_peekHeight value
-STATE_HIDDEN -> hidden horizontally
-
 Customize corner shape with shapeAppearanceOverlay attribute:
 ```xml
  <style name="ShapeAppearanceOverlay.CornerShape" parent="">
@@ -55,6 +47,14 @@ Customize corner shape with shapeAppearanceOverlay attribute:
         <item name="cornerFamily">rounded</item>
  </style>
 ```
+
+There are 3 state of CornerSheetBehavior:
+
+| State                                 | Description                                                      |
+| ------------------------              | ---------------------------------------------------------------- |
+| `CornerSheetBehavior.STATE_EXPANDED`  | expanded horizontally on `behavior_expanded_width` value         |
+| `CornerSheetBehavior.STATE_EXPANDED`  | expanded horizontally on `behavior_horizontal_peekHeight` value  |
+| `CornerSheetBehavior.STATE_EXPANDED`  | hide horizontally                                                |
 
 ![](/raw/behavior_states_sample.png)
 
@@ -66,7 +66,9 @@ behavior.expandedWidth = 170.dp()
 behavior.setHorizontalPeekHeight(60.dp(), animate = true) //will be animated if horizontal state is CornerSheetBehavior.STATE_COLLAPSED
 ```
 
-Just check app module with "Behavior Sample"
+Just check app module with "Behavior Sample":
+
+![](/raw/corner_behavior_sample.gif)
 
 
 There is also an option to use a view that can contain a header and content:

@@ -2,8 +2,11 @@
 <resources>
 
     <declare-styleable name="CornerSheetBehavior_Layout">
+        <!-- value for STATE_EXPANDED -->
         <attr name="behavior_horizontal_peekHeight" format="dimension" />
+        <!-- value for STATE_EXPANDED -->
         <attr name="behavior_expanded_width" format="dimension" />
+        <!-- vertical slide offset to which it should fully horizontally expanded by y-->
         <attr name="behavior_horizontalExpandingRatio" format="float" />
     </declare-styleable>
 
