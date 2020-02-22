@@ -9,7 +9,12 @@ The usage is similar to [BottomSheetBehavior](https://developer.android.com/refe
 A simple view with behavior in xml will be look like:
 
 ```xml
-  <FrameLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    android:id="@+id/coordinator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+        <FrameLayout
             android:id="@+id/corner_behavior_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -29,6 +34,8 @@ A simple view with behavior in xml will be look like:
                 app:titleTextColor="@android:color/white" />
 
         </FrameLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 ```
 
