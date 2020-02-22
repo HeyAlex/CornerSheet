@@ -141,4 +141,4 @@ dependencies {
 ```
 
 ## Samples
-You can find sample in app module, to understand functionality of library. [APK](https://github.com/HeyAlex/CornerSheet/raw/master/raw/app-debug.apk) sample
+You can find sample in app module, to understand functionality of library or just get an APK [here](https://github.com/HeyAlex/CornerSheet/raw/master/raw/app-debug.apk)
