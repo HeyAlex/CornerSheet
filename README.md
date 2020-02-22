@@ -47,7 +47,7 @@ You can use the following attributes on view with CornerSheetBehavior.
 | `behavior_expanded_width`                  | dimension             | 0dp     |
 | `behavior_horizontal_peekHeight`           | dimension             | 0dp     |
 
-Customize corner shape with shapeAppearanceOverlay attribute:
+Customize corner shape with `shapeAppearanceOverlay` attribute:
 ```xml
  <style name="ShapeAppearanceOverlay.CornerShape" parent="">
         <item name="cornerSizeTopLeft">30dp</item>
@@ -65,7 +65,7 @@ There are 3 state of CornerSheetBehavior:
 
 ![](/raw/behavior_states_sample.png)
 
-There are following api that can be used on CornerSheet Behavior:
+There are following api that can be used on `CornerSheetBehavior`:
 ```kotlin
 behavior.expandingRatio = 0.5f
 behavior.horizontalState = CornerSheetBehavior.STATE_EXPANDED
@@ -101,7 +101,7 @@ There is also an option to use a view that can contain a header and content:
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 ```
 
-With CornerDrawer you don't need to set peekHeight and expandedWidth, they will be assigned automatically when header_view will be inflated.
+With CornerDrawer you don't need to set `behavior_peekHeight` and `behavior_expanded_width`, they will be assigned automatically when `header_view` will be inflated.
 
 You can use an attributes on behavior that described below and a following attributes on CornerDrawer
 
@@ -112,7 +112,7 @@ You can use an attributes on behavior that described below and a following attri
 | `content_view`      | reference    | -1      |
 | `content_color`     | reference    | #FFF    |
 
-The main preview is done with CornerDrawer, just check app module with "Support Sample"
+The main preview is done with `CornerDrawer`, just check app module with "Support Sample"
 
 ## Integration
 
@@ -133,12 +133,12 @@ Add one of the following dependency:
 dependencies {
 
     //only CornerSheetBehavior
-    implementation 'com.github.HeyAlex.CornerSheet:core:master-SNAPSHOT'
+    implementation 'com.github.HeyAlex.CornerSheet:core:v1.0.0'
 
     //CornerSheetBehavior and CornerDrawer
-    implementation 'com.github.HeyAlex.CornerSheet:drawer:master-SNAPSHOT'
+    implementation 'com.github.HeyAlex.CornerSheet:drawer:v1.0.0'
 }
 ```
 
 ## Samples
-You can find sample in app module, to understand functionality of library.
+You can find sample in app module, to understand functionality of library. [APK](https://github.com/HeyAlex/CornerSheet/raw/master/raw/app-debug.apk) sample
