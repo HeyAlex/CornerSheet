@@ -5,7 +5,9 @@
 ## Usage
 
 The usage is similar to [BottomSheetBehavior](https://developer.android.com/reference/com/google/android/material/bottomsheet/BottomSheetBehavior)
+Corner Sheet - behavior that allow you expand a view from corner.
 
+![](https://github.com/HeyAlex/CornerSheet/blob/master/raw/corner_sample_pic.png)
 A simple view with behavior in xml will be look like:
 
 ```xml
@@ -42,7 +44,7 @@ A simple view with behavior in xml will be look like:
 You can use the following attributes on view with CornerSheetBehavior.
 
 | Properties                                 | Type                  | Default |
-| ------------------------                   | --------------------- | ------- |
+| -------------------------------------------| --------------------- | ------- |
 | `behavior_horizontalExpandingRatio`        | float                 | 0.2f    |
 | `behavior_expanded_width`                  | dimension             | 0dp     |
 | `behavior_horizontal_peekHeight`           | dimension             | 0dp     |
@@ -58,7 +60,7 @@ Customize corner shape with `shapeAppearanceOverlay` attribute:
 There are 3 state of CornerSheetBehavior:
 
 | State                                 | Description                                                      |
-| ------------------------              | ---------------------------------------------------------------- |
+| --------------------------------------| -------------------------------------------------------------------- |
 | `CornerSheetBehavior.STATE_EXPANDED`  | expanded horizontally on `behavior_expanded_width` value         |
 | `CornerSheetBehavior.STATE_COLLAPSED` | expanded horizontally on `behavior_horizontal_peekHeight` value  |
 | `CornerSheetBehavior.STATE_HIDDEN`    | hide horizontally                                                |
