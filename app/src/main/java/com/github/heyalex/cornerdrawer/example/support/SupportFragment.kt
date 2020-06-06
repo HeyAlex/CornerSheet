@@ -27,24 +27,31 @@ class SupportFragment : Fragment() {
         val view = inflater.inflate(R.layout.support_fragment, container, false)
         behavior =
             BottomSheetBehavior.from(view.findViewById<CornerDrawer>(R.id.corner_drawer)) as CornerSheetBehavior<CornerDrawer>
+        behavior.halfExpandedRatio = 0.7f
 
         backPressedCallback = object :
-            OnBackPressedCallback(behavior.state == BottomSheetBehavior.STATE_COLLAPSED) {
+            OnBackPressedCallback(behavior.state != BottomSheetBehavior.STATE_COLLAPSED) {
             override fun handleOnBackPressed() {
-                behavior.state = BottomSheetBehavior.STATE_COLLAPSED
+                if (wasExpanded && behavior.state != BottomSheetBehavior.STATE_HALF_EXPANDED)
+                    behavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+                else {
+                    behavior.state = BottomSheetBehavior.STATE_COLLAPSED
+                }
             }
         }
         activity?.onBackPressedDispatcher?.addCallback(this, backPressedCallback)
 
         view.header_root.setOnClickListener {
-            behavior.state = BottomSheetBehavior.STATE_EXPANDED
+            behavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             view.support_toolbar.setNavigationOnClickListener {
-                behavior.state = BottomSheetBehavior.STATE_COLLAPSED
+                backPressedCallback.handleOnBackPressed()
             }
         }
+
+        changeStatusBarIconColor(behavior.state == BottomSheetBehavior.STATE_EXPANDED)
 
         var isLight = false
         behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
@@ -61,11 +68,15 @@ class SupportFragment : Fragment() {
             }
 
             override fun onStateChanged(bottomSheet: View, newState: Int) {
+                if (newState == BottomSheetBehavior.STATE_EXPANDED) wasExpanded = true
+                backPressedCallback.isEnabled = newState != BottomSheetBehavior.STATE_COLLAPSED
             }
         })
 
         return view
     }
+
+    private var wasExpanded = false
 
     fun changeStatusBarIconColor(isLight: Boolean) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -79,11 +90,5 @@ class SupportFragment : Fragment() {
                 it.decorView.systemUiVisibility = flags
             }
         }
-    }
-
-    fun onBackPressed(): Boolean {
-        backPressedCallback.isEnabled = behavior.state == BottomSheetBehavior.STATE_EXPANDED
-        backPressedCallback.handleOnBackPressed()
-        return true
     }
 }

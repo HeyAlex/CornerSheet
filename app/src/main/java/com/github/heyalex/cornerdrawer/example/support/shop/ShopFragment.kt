@@ -14,6 +14,7 @@ import com.github.heyalex.CornerDrawer
 import com.github.heyalex.cornerdrawer.example.R
 import com.github.heyalex.cornerdrawer.example.support.ShopActivity
 import com.github.heyalex.cornersheet.behavior.CornerSheetHeaderBehavior
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.shop_fragment.*
 
 class ShopFragment : Fragment() {
@@ -47,6 +48,7 @@ class ShopFragment : Fragment() {
         view.findViewById<RecyclerView>(R.id.shop_recyclerview).apply {
             adapter = ShopAdapter(object : ShopItemClickListener {
                 override fun onClick(image: View, text: View, shopItemId: Long) {
+                    if (behavior.state != BottomSheetBehavior.STATE_COLLAPSED) return
 
                     val manager: FragmentManager = requireActivity().supportFragmentManager
                     val currentFragment: Fragment = manager.findFragmentByTag("shop")!!

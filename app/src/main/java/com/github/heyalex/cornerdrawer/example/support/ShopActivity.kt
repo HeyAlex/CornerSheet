@@ -56,9 +56,4 @@ class ShopActivity : FragmentActivity() {
                 .commit()
         }
     }
-
-    override fun onBackPressed() {
-        supportFragment.onBackPressed()
-        super.onBackPressed()
-    }
 }
