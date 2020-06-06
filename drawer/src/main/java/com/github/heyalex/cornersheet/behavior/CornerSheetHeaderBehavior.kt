@@ -53,14 +53,16 @@ class CornerSheetHeaderBehavior<V : CornerDrawer> : CornerSheetBehavior<V> {
     }
 
     private fun onStartState() {
-        if (state == BottomSheetBehavior.STATE_EXPANDED) {
+        if (state == BottomSheetBehavior.STATE_HALF_EXPANDED || state == BottomSheetBehavior.STATE_EXPANDED) {
             container?.alpha = 1f
             header?.alpha = 0f
             sheetBackground?.fillColor = ColorStateList.valueOf(contentColor)
             sheetBackground?.interpolation = 0f
             header?.visibility = View.GONE
             content?.visibility = View.VISIBLE
-            container?.translationY = topInset.toFloat()
+            if(state != BottomSheetBehavior.STATE_HALF_EXPANDED) {
+                container?.translationY = topInset.toFloat()
+            }
         } else {
             sheetBackground?.fillColor = ColorStateList.valueOf(headerColor)
             header?.visibility = View.VISIBLE
@@ -86,7 +88,7 @@ class CornerSheetHeaderBehavior<V : CornerDrawer> : CornerSheetBehavior<V> {
                 headerColor,
                 contentColor,
                 0f,
-                0.3f,
+                halfExpandedRatio,
                 slideOffset
             )
         )
@@ -104,13 +106,14 @@ class CornerSheetHeaderBehavior<V : CornerDrawer> : CornerSheetBehavior<V> {
             0f,
             1f,
             0.2f,
-            0.8f,
+            halfExpandedRatio - 0.1f,
             slideOffset
         )
+
         container?.translationY = interpolate(
             0f,
             topInset.toFloat(),
-            0.55f,
+            halfExpandedRatio - 0.1f,
             1f,
             slideOffset
         )

@@ -134,7 +134,7 @@ open class CornerMaterialSheetBehavior<V : View> : BottomSheetBehavior<V> {
             ViewCompat.setBackground(child, sheetBackground)
             fullViewWidth = child.width
             currentWidth = getMaxWidth()
-            if (state == STATE_EXPANDED) {
+            if (state == STATE_EXPANDED || state == STATE_HALF_EXPANDED) {
                 child.translationX = 0f
                 sheetBackground?.interpolation = 0f
             } else {
