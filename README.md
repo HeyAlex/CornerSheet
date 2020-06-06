@@ -124,7 +124,7 @@ This library is available on **jitpack**, so you need to add this repository to 
 allprojects {
     repositories {
         ...
-        maven { url 'https://jitpack.io' }
+        jcenter()
     }
 }
 ```
