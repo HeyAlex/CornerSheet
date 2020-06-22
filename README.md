@@ -135,10 +135,10 @@ Add one of the following dependency:
 dependencies {
 
     //only CornerSheetBehavior
-    implementation 'com.github.HeyAlex.CornerSheet:core:v1.0.1'
+    implementation 'com.github.heyalex.cornersheet:core:v1.0.1'
 
     //CornerSheetBehavior and CornerDrawer
-    implementation 'com.github.HeyAlex.CornerSheet:drawer:v1.0.1'
+    implementation 'com.github.heyalex.cornersheet:drawer:v1.0.1'
 }
 ```
 
