@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ExampleActivity">
+        <activity
+            android:name=".ExampleActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,8 +21,12 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".BehaviorSampleActivity" />
-        <activity android:name=".support.ShopActivity" />
+        <activity
+            android:name=".BehaviorSampleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".support.ShopActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

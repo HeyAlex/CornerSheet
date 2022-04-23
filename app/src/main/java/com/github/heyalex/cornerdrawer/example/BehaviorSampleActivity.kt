@@ -1,10 +1,12 @@
 package com.github.heyalex.cornerdrawer.example
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatSeekBar
+import androidx.appcompat.widget.Toolbar
 import com.github.heyalex.cornersheet.behavior.CornerSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.CornerMaterialSheetBehavior
@@ -33,6 +35,13 @@ class BehaviorSampleActivity : AppCompatActivity() {
 
         })
 
+
+        behavior.halfExpandedRatio = 0.3f
+
+        findViewById<Toolbar>(R.id.toolbar).setOnClickListener {
+            behavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+            behavior_state.text = "HALF EXPANDED"
+        }
 
         expand.setOnClickListener {
             behavior.horizontalState = CornerSheetBehavior.STATE_EXPANDED

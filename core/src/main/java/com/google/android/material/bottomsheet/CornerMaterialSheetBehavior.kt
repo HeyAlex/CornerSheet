@@ -133,7 +133,7 @@ open class CornerMaterialSheetBehavior<V : View> : BottomSheetBehavior<V> {
         if (!isViewRefInitialized) {
             ViewCompat.setBackground(child, sheetBackground)
             fullViewWidth = child.width
-            currentWidth = getMaxWidth()
+            currentWidth = getMaxWidthCornerSheet()
             if (state == STATE_EXPANDED || state == STATE_HALF_EXPANDED) {
                 child.translationX = 0f
                 sheetBackground?.interpolation = 0f
@@ -145,7 +145,7 @@ open class CornerMaterialSheetBehavior<V : View> : BottomSheetBehavior<V> {
             addBottomSheetCallback(object :
                 BottomSheetCallback() {
                 override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                    val translationValue = getMaxWidth()
+                    val translationValue = getMaxWidthCornerSheet()
                     child.translationX =
                         interpolate(
                             translationValue.toFloat(),
@@ -194,7 +194,7 @@ open class CornerMaterialSheetBehavior<V : View> : BottomSheetBehavior<V> {
             interpolator = AccelerateInterpolator()
             duration = 150
             val start = currentWidth
-            val end = getMaxWidth()
+            val end = getMaxWidthCornerSheet()
 
             addUpdateListener { animation ->
                 val value = animation.animatedValue as Float
@@ -294,7 +294,7 @@ open class CornerMaterialSheetBehavior<V : View> : BottomSheetBehavior<V> {
         isViewRefInitialized = false
     }
 
-    private fun getMaxWidth(): Int {
+    private fun getMaxWidthCornerSheet(): Int {
         val width = when (horizontalState) {
             CornerSheetBehavior.STATE_EXPANDED -> expandedWidth
             CornerSheetBehavior.STATE_COLLAPSED -> horizontalPeekWidth

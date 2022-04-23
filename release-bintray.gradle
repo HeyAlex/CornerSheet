@@ -1,27 +1,27 @@
-ext {
-    bintrayRepo = 'CornerSheet'
-    bintrayName = POM_BINTRAY_NAME
-
-    publishedGroupId = 'com.github.heyalex.cornersheet'
-    libraryName = 'cornersheet'
-    artifact = POM_ARTIFACT_ID
-    packagingType = POM_PACKAGING
-
-    libraryDescription = POM_DESCRIPTION
-
-    siteUrl = 'https://github.com/HeyAlex/CornerSheet'
-    gitUrl = 'https://github.com/HeyAlex/CornerSheet.git'
-
-    libraryVersion = POM_VERSION
-
-    developerId = 'heyalex'
-    developerName = 'Alex Fialko'
-    developerEmail = 'alexfialko@hotmail.com'
-
-    licenseName = 'MIT/X11 License'
-    licenseUrl = 'http://opensource.org/licenses/MIT'
-    allLicenses = ["MIT"]
-}
-
-apply from: rootProject.file('jcenter/maven-install.gradle')
-apply from: rootProject.file('jcenter/bintray.gradle')
+//ext {
+//    bintrayRepo = 'CornerSheet'
+//    bintrayName = POM_BINTRAY_NAME
+//
+//    publishedGroupId = 'com.github.heyalex.cornersheet'
+//    libraryName = 'cornersheet'
+//    artifact = POM_ARTIFACT_ID
+//    packagingType = POM_PACKAGING
+//
+//    libraryDescription = POM_DESCRIPTION
+//
+//    siteUrl = 'https://github.com/HeyAlex/CornerSheet'
+//    gitUrl = 'https://github.com/HeyAlex/CornerSheet.git'
+//
+//    libraryVersion = POM_VERSION
+//
+//    developerId = 'heyalex'
+//    developerName = 'Alex Fialko'
+//    developerEmail = 'alexfialko@hotmail.com'
+//
+//    licenseName = 'MIT/X11 License'
+//    licenseUrl = 'http://opensource.org/licenses/MIT'
+//    allLicenses = ["MIT"]
+//}
+//
+//apply from: rootProject.file('jcenter/maven-install.gradle')
+//apply from: rootProject.file('jcenter/bintray.gradle')

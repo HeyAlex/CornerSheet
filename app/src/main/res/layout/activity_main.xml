@@ -93,6 +93,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             app:backgroundTint="@color/colorPrimary"
+            app:behavior_horizontalExpandingRatio="0.1"
             app:behavior_expanded_width="175dp"
             app:behavior_horizontal_peekHeight="97dp"
             app:behavior_peekHeight="60dp"
@@ -114,7 +115,8 @@
                 android:id="@+id/expandedValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="top"
+                android:paddingTop="90dp"
                 android:text="SLIDE OFFSET"
                 android:textColor="@android:color/white"
                 android:textSize="20sp" />

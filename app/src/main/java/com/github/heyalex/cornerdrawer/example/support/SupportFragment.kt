@@ -32,17 +32,17 @@ class SupportFragment : Fragment() {
         backPressedCallback = object :
             OnBackPressedCallback(behavior.state != BottomSheetBehavior.STATE_COLLAPSED) {
             override fun handleOnBackPressed() {
-                if (wasExpanded && behavior.state != BottomSheetBehavior.STATE_HALF_EXPANDED)
-                    behavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
-                else {
-                    behavior.state = BottomSheetBehavior.STATE_COLLAPSED
-                }
+                behavior.state = BottomSheetBehavior.STATE_COLLAPSED
             }
         }
         activity?.onBackPressedDispatcher?.addCallback(this, backPressedCallback)
 
         view.header_root.setOnClickListener {
-            behavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+            if (behavior.state == BottomSheetBehavior.STATE_COLLAPSED) {
+                behavior.state = BottomSheetBehavior.STATE_EXPANDED
+            } else {
+                behavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            }
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -68,15 +68,12 @@ class SupportFragment : Fragment() {
             }
 
             override fun onStateChanged(bottomSheet: View, newState: Int) {
-                if (newState == BottomSheetBehavior.STATE_EXPANDED) wasExpanded = true
                 backPressedCallback.isEnabled = newState != BottomSheetBehavior.STATE_COLLAPSED
             }
         })
 
         return view
     }
-
-    private var wasExpanded = false
 
     fun changeStatusBarIconColor(isLight: Boolean) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
