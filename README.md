@@ -118,13 +118,13 @@ The main preview is done with `CornerDrawer`, just check app module with "Suppor
 
 ## Integration
 
-This library is available on **jcenter**, so you need to add this repository to your root build.gradle:
+This library is available on **mavenCentral**, so you need to add this repository to your root build.gradle:
 
 ```groovy
 allprojects {
     repositories {
         ...
-        jcenter()
+        mavenCentral()
     }
 }
 ```
